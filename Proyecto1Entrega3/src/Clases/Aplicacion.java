@@ -15,15 +15,18 @@ public class Aplicacion {
         ingresarUsuario();
     }
     public void ingresarUsuario(){
+    	boolean continuar = true;
+    	while(continuar == true) {
         String usuario = input("Ingrese su usuario");
         String contraseña = input("Ingrese su contraseña");
         Usuario user = this.hotel.getUsuario(usuario, contraseña);
         if(user == null){
-            System.out.println("No se encontró el usuario.");
+            System.out.println("No se encontró el usuario. Intente de nuevo.");
         }
         else{
-            System.out.println("Bienvenido señor/a: " + user.getNombre() + ". Cargo: " + user.getRol()+".");}
-    }
+        	continuar = false;
+            System.out.println("Bienvenido señor/a: " + user.getNombre() + ".\nCargo: " + user.getRol()+".");}
+    }}
     public String input(String mensaje)
 	{
 		try

@@ -12,7 +12,7 @@ public class Hotel {
         this.usuarios = new ArrayList<Usuario>();
     }
     public void cargarUsuarios() throws IOException{
-        File archivo_usuarios = new File("Datos/Usuarios.txt");
+        File archivo_usuarios = new File("Proyecto1Entrega3/Datos/Usuarios.txt");
         try (BufferedReader br = new BufferedReader(new FileReader(archivo_usuarios))) {
             String st;
             br.readLine();
