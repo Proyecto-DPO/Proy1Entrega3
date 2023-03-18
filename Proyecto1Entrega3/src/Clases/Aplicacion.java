@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Aplicacion {
-    private Hotel hotel = new Hotel();
+    private Hotel hotel = new Hotel(); //hola
     public static void main(String args[]) throws IOException{
         Aplicacion aplicacion = new Aplicacion();
         aplicacion.ejecutarAplicacion();
