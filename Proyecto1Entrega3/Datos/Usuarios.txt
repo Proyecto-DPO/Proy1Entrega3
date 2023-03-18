@@ -1,0 +1,12 @@
+nombre;usuario;contraseña;rol
+Mario Alexander;m.a13;1234;Administrador
+Ana Martinez;ana_martinez;123456;Recepcionista
+Luis García;luis_garcia;abc123;Empleado
+Carla Jiménez;carla_jimenez;qwerty;Recepcionista
+Pedro Sánchez;pedro_sanchez;contraseña;Empleado
+María Rodríguez;maria_rodriguez;securepwd;Recepcionista
+Javier López;javier_lopez;password;Empleado
+Lucía Pérez;lucia_perez;letmein;Recepcionista
+Diego González;diego_gonzalez;secret;Empleado
+Sofía García;sofia_garcia;iloveyou;Recepcionista
+Andrés Torres;andres_torres;admin;Empleado
