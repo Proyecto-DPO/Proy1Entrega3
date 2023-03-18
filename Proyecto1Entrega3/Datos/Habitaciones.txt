@@ -1,0 +1,21 @@
+id;ubicacion;balcon;vista;cocinaIntegrada;tipoHabitacion
+1;102;true;false;true;estándar
+2;103;false;true;false;suite
+3;104;true;1;true;suite doble
+4;105;false;0;true;estándar
+5;106;true;1;false;suite
+6;107;false;true;1;suite doble
+7;108;true;false;0;estándar
+8;109;false;0;true;suite
+9;110;true;1;true;suite doble
+10;111;false;true;false;estándar
+11;112;true;false;true;suite
+12;113;false;0;false;estándar
+13;114;true;1;true;suite doble
+14;115;false;true;false;suite
+15;116;true;false;true;estándar
+16;117;false;0;false;suite
+17;118;true;1;true;suite doble
+18;119;false;true;false;estándar
+19;120;true;false;true;suite
+20;121;false;0;false;estándar
