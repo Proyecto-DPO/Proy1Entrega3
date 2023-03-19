@@ -68,7 +68,7 @@ public class ControladorHabitaciones {
         else if(numero == 7){String = "S";}
         return String;
     }
-    public HashMap<String, ArrayList<String>> tarifasSinDefinirProximoAño(){
+    public String tarifasSinDefinirProximoAño(){
         String[] keys = {"estandar","suite","suite doble"};
         HashMap<String, ArrayList<String>> tarifasSinDefinir = new HashMap<String, ArrayList<String>>();
         tarifasSinDefinir.put("estandar", new ArrayList<String>());
@@ -86,9 +86,19 @@ public class ControladorHabitaciones {
                         && tarifasExistentes.get(keys[key]).get(pos).tarifaAplicaDia(diaSemana) == true){
                             algunaAplica = true;}}
             if(algunaAplica == false){
-                tarifasSinDefinir.get(keys[key]).add(diaSemana +" "+ sdf.format(hoy.getTime()));}
-            }}
+                tarifasSinDefinir.get(keys[key]).add(" "+diaSemana +":"+ sdf.format(hoy.getTime()));}
+            }
+            hoy.add(Calendar.DAY_OF_YEAR, 1);}
         
-        return tarifasSinDefinir;
+        String retorno = "";
+        for(int key = 0; key<keys.length;key++){
+            retorno += keys[key] + ":";
+            for(int pos = 0; pos<tarifasSinDefinir.get(keys[key]).size();pos++){
+                retorno += tarifasSinDefinir.get(keys[key]).get(pos);
+            }
+            retorno += ".\n";
+        }
+
+        return retorno;
     }
 }
