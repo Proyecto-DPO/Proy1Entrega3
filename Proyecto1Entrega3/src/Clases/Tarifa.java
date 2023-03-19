@@ -31,10 +31,10 @@ public class Tarifa {
     public RangoFechas getRangoFechas() {
         return rangoFechas;
     }
-    public boolean tarifaAplicaDia(Character dia){
+    public boolean tarifaAplicaDia(String dia){
         boolean aplica = false;
         for(int i=0;i<this.diasSemana.length();i++){
-            if(dia.equals(diasSemana.charAt(i))){
+            if(dia.equals("" + diasSemana.charAt(i))){
                 aplica = true;
             } 
         }  
