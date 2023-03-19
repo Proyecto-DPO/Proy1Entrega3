@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 
 public class Hotel {
@@ -63,7 +64,8 @@ public class Hotel {
     }
     public void cargarMenuRestaurante() {
     }
-    public void cargarTarifaServicio() {
+    public void cargarTarifaServicio(String tipoHabitacion, double valorTarifa, String fechaInicial, String fechaFinal, String dias) throws ParseException {
+        this.controladorHabitaciones.cargarTarifaServicio( tipoHabitacion,  valorTarifa,  fechaInicial,  fechaFinal,  dias);
     }
     public void cargarTarifaHabitacion() {
     }

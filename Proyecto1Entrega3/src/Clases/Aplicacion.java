@@ -3,19 +3,20 @@ package Clases;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.ParseException;
 import java.util.ArrayList;
 
 public class Aplicacion {
     private Hotel hotel = new Hotel();
-    public static void main(String args[]) throws IOException{
+    public static void main(String args[]) throws IOException, NumberFormatException, ParseException{
         Aplicacion aplicacion = new Aplicacion();
         aplicacion.ejecutarAplicacion();
     }
-    private void ejecutarAplicacion() throws IOException {
+    private void ejecutarAplicacion() throws IOException, NumberFormatException, ParseException {
         this.hotel.cargarUsuarios();
         ingresarUsuario();
     }
-    public void ingresarUsuario() throws NumberFormatException, IOException{
+    public void ingresarUsuario() throws NumberFormatException, IOException, ParseException{
     	boolean continuar1 = true;
         boolean continuar2 = true;
     	while(continuar1 == true) {
@@ -37,7 +38,7 @@ public class Aplicacion {
                     opcionSeleccionada(user,opcion);}
                 }
             }}}
-    public void opcionSeleccionada(Usuario user, String opcion) throws NumberFormatException, IOException {
+    public void opcionSeleccionada(Usuario user, String opcion) throws NumberFormatException, IOException, ParseException {
         if(user.getRol().equals("Administrador")){
             if(opcion.equals("1")){cargarArchivoHabitaciones();}
             else if(opcion.equals("2")){crearHabitacion();}
@@ -71,7 +72,13 @@ public class Aplicacion {
     }
     public void cargarTarifaServicio() {
     }
-    public void cargarTarifaHabitacion() {
+    public void cargarTarifaHabitacion() throws ParseException {
+        String tipoHabitacion = input("Ingrese el tipo de habitación para aplicar la tarifa (estandar, suite, o suite doble)");
+        double valorTarifa = Double.parseDouble(input("Ingrese el valor de la tarifa"));
+        String fechaInicial = input("Ingrese la fecha inicial (formato yyyy-mm-dd)");
+        String fechaFinal = input("Ingrese la fecha final (formato yyyy-mm-dd)");
+        String dias = input("Ingrese los días en los que aplica la tarifa (L:Lunes,M:Martes,X:Miecoles,J:Jueves,V:Viernes,S:Sabado,D:Domingo), ej: LMS");
+        this.hotel.cargarTarifaServicio(tipoHabitacion,valorTarifa,fechaInicial,fechaFinal,dias);
     }
     public void crearHabitacion() {
         //id;ubicacion;balcon;vista;cocinaIntegrada;tipoHabitacion
@@ -79,7 +86,7 @@ public class Aplicacion {
         String balcon = input("Ingrese si tiene balcon (true/false)");
         String vista = input("Ingrese si tiene vista (true/false)");
         String cocinaIntegrada = input("Ingrese si tiene cocina integrada (true/false)");
-        String tipoHabitacion = input("Ingrese el tipo de habitación (estándar, suite, o suite doble)");
+        String tipoHabitacion = input("Ingrese el tipo de habitación (estandar, suite, o suite doble)");
         String numCamas = input("Ingrese el número de camas que tiene la habitación (minimo 1)");
         ArrayList<ArrayList<String>> infoCamas = new ArrayList<ArrayList<String>>();
         for(int i=1; i <= Integer.parseInt(numCamas);i++){

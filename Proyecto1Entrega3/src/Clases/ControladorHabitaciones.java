@@ -4,13 +4,22 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 
 public class ControladorHabitaciones {
     private ArrayList<Habitacion> habitaciones;
+    private HashMap<String,ArrayList<Tarifa>> tarifasExistentes;
 
     public ControladorHabitaciones(){
         this.habitaciones = new ArrayList<Habitacion>();
+        this.tarifasExistentes = new HashMap<String,ArrayList<Tarifa>>();
+        this.tarifasExistentes.put("estandar", new ArrayList<Tarifa>());
+        this.tarifasExistentes.put("suite", new ArrayList<Tarifa>());
+        this.tarifasExistentes.put("suite doble", new ArrayList<Tarifa>());
     }
     public void cargarArchivoHabitaciones(File ruta_archivoHabitacion, File ruta_archivoCamas) throws NumberFormatException, IOException{
         try (BufferedReader br = new BufferedReader(new FileReader(ruta_archivoHabitacion))) {
@@ -38,5 +47,14 @@ public class ControladorHabitaciones {
                 Cama cama = new Cama(info.get(0),Integer.parseInt(info.get(1)),Boolean.parseBoolean(info.get(2)));
                 habitacion.addCama(cama);}
             this.habitaciones.add(habitacion);
+    }
+    public void cargarTarifaServicio(String tipoHabitacion, double valorTarifa, String fechaInicial, String fechaFinal,
+            String dias) throws ParseException {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                Date dateInicial = sdf.parse(fechaInicial);
+                Date dateFinal = sdf.parse(fechaFinal);
+
+                Tarifa tarifa = new Tarifa(dias, valorTarifa, tipoHabitacion, dateInicial, dateFinal);
+                this.tarifasExistentes.get(tipoHabitacion).add(tarifa);            
     }
 }
