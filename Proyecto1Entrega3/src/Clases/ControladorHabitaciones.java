@@ -81,9 +81,10 @@ public class ControladorHabitaciones {
             String diaSemana = numDayToString(hoy.get(Calendar.DAY_OF_WEEK));
             for(int key = 0; key<keys.length;key++){
                 boolean algunaAplica  = false;
-                for(int pos = 0; i< tarifasExistentes.get(keys[key]).size();pos++){
-                    if(tarifasExistentes.get(keys[key]).get(pos).getRangoFechas().fechaEnRango(hoy.getTime()) == true 
-                        && tarifasExistentes.get(keys[key]).get(pos).tarifaAplicaDia(diaSemana) == true){
+                for(int pos = 0; pos< tarifasExistentes.get(keys[key]).size();pos++){
+                    boolean enRango = tarifasExistentes.get(keys[key]).get(pos).getRangoFechas().fechaEnRango(hoy.getTime()); 
+                    boolean aplicaDia = tarifasExistentes.get(keys[key]).get(pos).tarifaAplicaDia(diaSemana);
+                    if(enRango == true && aplicaDia == true){
                             algunaAplica = true;}}
             if(algunaAplica == false){
                 tarifasSinDefinir.get(keys[key]).add(" "+diaSemana +":"+ sdf.format(hoy.getTime()));}

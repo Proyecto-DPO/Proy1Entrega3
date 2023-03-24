@@ -21,10 +21,6 @@ public class RangoFechas {
     }
     
     public boolean fechaEnRango(Date fecha){
-        boolean enRango = false;
-        if(this.fechaInicial.after(fecha) && this.fechaFinal.before(fecha)){
-            enRango = true;
-        }
-        return enRango;
-    }
+        return fecha.getTime() >= fechaInicial.getTime() && fecha.getTime() <= fechaFinal.getTime();
+}
 }
