@@ -45,7 +45,9 @@ public class Aplicacion {
             else if(opcion.equals("3")){cargarTarifaHabitacion();}
             else if(opcion.equals("4")){cargarTarifaServicio();}
             else if(opcion.equals("5")){cargarMenuRestaurante();}
-            else if(opcion.equals("6")){crearProductoRestaurante();}}
+            else if(opcion.equals("6")){crearProductoRestaurante();}
+            else if(opcion.equals("7")){tarifasSinDefinirProximoAño();}}
+            
         else if(user.getRol().equals("Recepcionista")){
             if(opcion.equals("1")){crearReserva();}
             else if(opcion.equals("2")){GenerarFacturaReserva();}
@@ -66,6 +68,9 @@ public class Aplicacion {
     public void crearReserva() {
     }
     // Requerimientos Administrador
+    public void tarifasSinDefinirProximoAño(){
+        System.out.println(this.hotel.getControladorHabitaciones().tarifasSinDefinirProximoAño());
+    }
     public void crearProductoRestaurante() {
     }
     public void cargarMenuRestaurante() {
@@ -114,6 +119,7 @@ public class Aplicacion {
             System.out.println("4. Establecer o cambiar tarifa para un servicio.");
             System.out.println("5. Cargar menú restaurante");
             System.out.println("6. Crear producto de restaurante.");
+            System.out.println("7. Consultar tarifas sin crear en los proximos 365 días.");
             System.out.println("0. Cerrar.");}
 
         else if(user.getRol().equals("Recepcionista")){
