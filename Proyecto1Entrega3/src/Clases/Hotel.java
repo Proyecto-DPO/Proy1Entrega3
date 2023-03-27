@@ -53,16 +53,24 @@ public class Hotel {
     public void registrarConsumo() {
     }
     // Requerimientos Recepcionista
-    public void ConsultarInventario() {
+    public String ConsultarInventario() {
+        return controladorHabitaciones.consultarInventario();
     }
     public void GenerarFacturaReserva() {
     }
-    public void crearReserva() {
+    public int crearReserva(ArrayList<ArrayList<String>> infoHuespedes, String fechaInicial, String fechaFinal, String idHabitacion) throws ParseException {
+        Habitacion habitacion = controladorHabitaciones.getHabitacion(Integer.parseInt(idHabitacion));
+        Reserva reserva = controladorReservas.crearReserva(infoHuespedes,fechaInicial,fechaFinal,habitacion);
+
+        controladorHabitaciones.getHabitacion(Integer.parseInt(idHabitacion)).getReservas().add(reserva);
+
+        return reserva.getIdReserva();
     }
     // Requerimientos Administrador
     public void crearProductoRestaurante() {
     }
-    public void cargarMenuRestaurante() {
+    public void cargarMenuRestauranteYServicios(String servicios, String menu) throws IOException {
+        controladorServicios.cargarServiciosYMenu(new File(servicios), new File(menu));
     }
     public void cargarTarifaServicio(String tipoHabitacion, double valorTarifa, String fechaInicial, String fechaFinal, String dias) throws ParseException {
         this.controladorHabitaciones.cargarTarifaServicio( tipoHabitacion,  valorTarifa,  fechaInicial,  fechaFinal,  dias);

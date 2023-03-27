@@ -102,4 +102,11 @@ public class ControladorHabitaciones {
 
         return retorno;
     }
+    public Habitacion getHabitacion(int id){
+        return this.habitaciones.get(id-1);
+    }
+
+    public String consultarInventario(){
+        return null;
+    }
 }

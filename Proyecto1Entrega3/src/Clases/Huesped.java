@@ -6,17 +6,17 @@ public class Huesped {
     private String nombre;
     private int documento; 
     private String email; 
-    private int celular; 
+    private String celular; 
     private boolean necesitaCama; 
     private ArrayList<Reserva> historialReserva;
 
-    public Huesped(String nombre, int documento, String email,int celular,boolean necesitaCama){
+    public Huesped(String nombre, int documento, String email,String celular,boolean necesitaCama){
 
-        nombre = this.nombre;
-        documento = this.documento;
-        email = this.email;
-        celular = this.celular;
-        necesitaCama = this.necesitaCama;
+        this.nombre = nombre;
+        this.documento = documento;
+        this.email = email;
+        this.celular = celular;
+        this.necesitaCama = necesitaCama;
     }
 
     public ArrayList<Reserva> mostrarHistorialReservas(){
@@ -24,19 +24,36 @@ public class Huesped {
         return historialReserva;
     }
 
-    public ArrayList<String> getInfo(){
-
-        ArrayList<String> info = new ArrayList<>();
-        info.add(nombre);
-        info.add(Integer.toString(documento));
-        info.add(email);
-        info.add(Integer.toString(celular));
-        info.add(Boolean.toString(necesitaCama));
-
-        return info;
-
-
+    public String getNombre() {
+        return nombre;
     }
+
+    public int getDocumento() {
+        return documento;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getCelular() {
+        return celular;
+    }
+
+    public boolean isNecesitaCama() {
+        return necesitaCama;
+    }
+
+    public ArrayList<Reserva> getHistorialReserva() {
+        return historialReserva;
+    }
+
+    public ArrayList<String> getInfo() {
+        return null;
+    }
+
+    
+    
 
 
 

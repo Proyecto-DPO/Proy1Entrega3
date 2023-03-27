@@ -11,6 +11,7 @@ public class Habitacion {
     private String tipoHabitacion;
 
     private ArrayList<Cama> camas;
+    private ArrayList<Reserva> reservas;
 
     public Habitacion(int id, String ubicacion, boolean balcon,
         boolean vista, boolean cocinaIntegrada, String tipoHabitacion){
@@ -20,7 +21,7 @@ public class Habitacion {
             this.vista  = vista;
             this.cocinaIntegrada = cocinaIntegrada;
             this.tipoHabitacion = tipoHabitacion;
-
+            this.reservas = new ArrayList<Reserva>();
             this.camas = new ArrayList<Cama>();}
     public int getId() {
         return this.id;}
@@ -42,6 +43,9 @@ public class Habitacion {
     }
     public void addCama(Cama cama){
         this.camas.add(cama);
+    }
+    public ArrayList<Reserva> getReservas() {
+        return reservas;
     }
     
 }

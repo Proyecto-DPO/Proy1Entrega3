@@ -23,6 +23,9 @@ public class Cama {
         return this.cantidadPersonas;
     }
     
+    public String stringFactura(){
+        return "        Cama " + tamaño + " para " + cantidadPersonas + " personas. Solo niños: " + soloNiños +"."; 
+    }
 
     
 }
