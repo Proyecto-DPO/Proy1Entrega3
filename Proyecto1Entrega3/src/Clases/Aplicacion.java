@@ -53,6 +53,7 @@ public class Aplicacion {
             if(opcion.equals("1")){crearReserva();}
             else if(opcion.equals("2")){GenerarFacturaReserva();}
             else if(opcion.equals("3")){ConsultarInventario();}
+            else if(opcion.equals("4")){cancelarReserva();}
             else if(opcion.equals("0")){ingresarUsuario();}}
         else{
             if(opcion.equals("1")){registrarConsumo();}
@@ -131,6 +132,20 @@ public class Aplicacion {
         System.out.println("La reserva se creó exitosamente con el id " + id + ".");
         
 
+    }
+    private void cancelarReserva() {
+        for(int i= 0; i< hotel.getControladorReservas().getReservas().size();i++){
+            System.out.println(i + " " + hotel.getControladorReservas().getReservas().get(i).seleccionadorReserva());
+        }
+
+        int id = Integer.parseInt(input("Ingrese el id de la reserva a cancelar"));
+        boolean bool = hotel.getControladorReservas().cancelarReserva(id);
+        if(bool == true){
+            System.out.println("La reserva se canceló con exito.");
+        }
+        else{
+            System.out.println("No se puede cancelar la reserva porque faltan menos de 48 horas para su inicio.");
+        }
     }
     // Requerimientos Administrador
     public void tarifasSinDefinirProximoAño(){
@@ -214,6 +229,7 @@ public class Aplicacion {
             System.out.println("1. Crear reserva a nombre de uno o varios huespedes.");
             System.out.println("2. Generar factura para una reserva.");
             System.out.println("3. Consultar inventario de habitaciones.");
+            System.out.println("4. Cancelar Reserva.");
             System.out.println("0. Cerrar.");}
         
         else if(user.getRol().equals("Empleado")){

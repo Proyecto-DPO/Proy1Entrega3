@@ -2,6 +2,8 @@ package Clases;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class ControladorReservas {
     
@@ -83,8 +85,24 @@ public class ControladorReservas {
                 }
             }
         }
-        return reservasDoc;
-    }
+        return reservasDoc;}
+
+        public boolean cancelarReserva(int id){
+            boolean retorno = false;
+            Reserva reserva = getReservaId(id+1);
+            Date fechaInicial = reserva.getFechaInicial();
+            Date hoy = Calendar.getInstance().getTime();
+
+            if(((fechaInicial.getTime() - hoy.getTime())/3.6e6) >= 48){
+                reservas.remove(id);
+                retorno = true;
+            }
+            return retorno;
+        }
+
+        public ArrayList<Reserva> getReservas(){
+            return this.reservas;
+        }
 }
 
 

@@ -1,6 +1,7 @@
 package Clases;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Reserva {
 
@@ -60,4 +61,14 @@ public class Reserva {
         }
         return retorno;
     }
-}
+    public String seleccionadorReserva(){
+        String retorno = getRangoFecha() + ":";
+        for(int i=0; i<huespedes.size();i++){
+            retorno += huespedes.get(i).getNombre() + " - " + huespedes.get(i).getDocumento() + "\n";
+        }
+        return retorno;
+    }
+    public Date getFechaInicial(){
+        return this.rangoFecha.getFechaInicial();
+    }
+}   
