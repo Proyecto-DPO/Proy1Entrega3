@@ -107,6 +107,11 @@ public class ControladorHabitaciones {
     }
 
     public String consultarInventario(){
-        return null;
+        String retorno = "";
+        for(int i=0;i<habitaciones.size();i++){
+            retorno += habitaciones.get(i).textoInventario() + "\n";
+        }
+
+        return retorno;
     }
 }

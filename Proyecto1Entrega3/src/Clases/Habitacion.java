@@ -47,5 +47,23 @@ public class Habitacion {
     public ArrayList<Reserva> getReservas() {
         return reservas;
     }
-    
+    public int getEspacio(){
+        int espacio = 0;
+        for(int i=0;i<camas.size();i++){
+            espacio += camas.get(i).getCantidadPersonas();
+        }
+        return espacio;
+    }
+    public String textoInventario(){
+        String retorno = ubicacion + " " + "Id->" + this.id + ": Habitación tipo " + this.tipoHabitacion + " con capacidad para " + getEspacio() + " personas.\n";
+        retorno += "Cocina Integrada:" + cocinaIntegrada+"\nVista:" + vista + "\nBalcon:" + balcon + "\nCamas:\n";
+        for(int i=1;i<=camas.size();i++){
+            retorno += "    Cama " + i + ":" + camas.get(i-1).stringFactura() + "\n";
+        }
+        retorno += "Reservas:\n";
+        for(int i=1;i<=reservas.size();i++){
+            retorno += reservas.get(i-1).stringInventario() + "\n";
+        }
+        return retorno;
+    }
 }

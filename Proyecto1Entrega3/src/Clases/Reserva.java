@@ -1,4 +1,5 @@
 package Clases;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class Reserva {
@@ -33,7 +34,8 @@ public class Reserva {
     }
 
     public String getRangoFecha() {
-        return this.rangoFecha.getFechaInicial().toString() + "-" + this.rangoFecha.getFechaFinal().toString();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        return  sdf.format(this.rangoFecha.getFechaInicial()) + " - " + sdf.format(this.rangoFecha.getFechaFinal());
     }
 
     public Habitacion getHabitacion() {
@@ -51,5 +53,11 @@ public class Reserva {
     public ArrayList<Servicio> getServiciosConsumidos() {
         return serviciosConsumidos;
     }
-
+    public String stringInventario(){
+        String retorno ="   "+ getRangoFecha() + ":\n";
+        for(int i=0; i<huespedes.size();i++){
+            retorno += "        " + huespedes.get(i).getNombre() + " - " + huespedes.get(i).getDocumento() + "\n";
+        }
+        return retorno;
+    }
 }

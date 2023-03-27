@@ -101,6 +101,7 @@ public class Aplicacion {
     }
     // Requerimientos Recepcionista
     public void ConsultarInventario() {
+        System.out.println(hotel.ConsultarInventario());
     }
     public void GenerarFacturaReserva() {
     }
@@ -198,7 +199,6 @@ public class Aplicacion {
         String archivoCamas = input("Ingrese el nombre del archivo de camas");
         this.hotel.cargarArchivoHabitaciones(archivoHabitaciones,archivoCamas);}
 
-    ///
     public void mostrarMenu(Usuario user){
         if(user.getRol().equals("Administrador")){
             System.out.println("1. Cargar archivo habitaciones.");
