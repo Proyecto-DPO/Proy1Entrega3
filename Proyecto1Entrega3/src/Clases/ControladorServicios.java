@@ -51,4 +51,11 @@ public class ControladorServicios {
     public ProductoRestaurante getMenuId(int id){
         return this.menu.get(id);
     }
+    public ArrayList<Servicio> getServicios() {
+        return servicios;
+    }
+    public ArrayList<ProductoRestaurante> getMenu() {
+        return menu;
+    }
+    
 }

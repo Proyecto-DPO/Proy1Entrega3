@@ -136,6 +136,13 @@ public class Aplicacion {
         System.out.println(this.hotel.getControladorHabitaciones().tarifasSinDefinirProximoAño());
     }
     public void crearProductoRestaurante() {
+        String nombre = input("Ingrese el nombre del producto");
+        String tipoProducto = input("Ingrese el tipo de producto (comida/bebida)");
+        String rangoHoras = input("Ingrese el rango de horas (HH:mm-HH:mm)");
+        double precio = Double.parseDouble(input("Ingrese el precio:"));
+
+        ProductoRestaurante productoRestaurante = new ProductoRestaurante(nombre, "persona", "Restaurante", precio, rangoHoras, tipoProducto);
+        this.hotel.getControladorServicios().getMenu().add(productoRestaurante);
     }
     public void cargarMenuRestauranteYServicios() throws IOException {
         String servicios = input("Ingrese el nombre del archivo de servicios");
@@ -144,12 +151,20 @@ public class Aplicacion {
         this.hotel.cargarMenuRestauranteYServicios("Proyecto1Entrega3/Datos/"+servicios,"Proyecto1Entrega3/Datos/"+menu);
     }
     public void cargarTarifaServicio() {
+        String decision = input("Determine el precio de un servicio (0) o de un producto del restaurante (1)");
+        if(decision.equals("0")){
         System.out.println(this.hotel.getControladorServicios().mostrarServicios());
         int id = Integer.parseInt(input("Seleccione el servicio"));
         Servicio servicio = this.hotel.getControladorServicios().getServicioId(id);
         double nuevaTarifa = Double.parseDouble(input("ingrese el nuevo valor del servicio"));
-
-        servicio.setPrecio(nuevaTarifa);
+        servicio.setPrecio(nuevaTarifa);}
+        else{
+            System.out.println(this.hotel.getControladorServicios().mostrarMenu());
+            int id = Integer.parseInt(input("Seleccione el producto"));
+            ProductoRestaurante producto = this.hotel.getControladorServicios().getMenuId(id);
+            double nuevaTarifa = Double.parseDouble(input("ingrese el nuevo valor del producto"));
+            producto.setPrecio(nuevaTarifa);
+        }
     }
     public void cargarTarifaHabitacion() throws ParseException {
         String tipoHabitacion = input("Ingrese el tipo de habitación para aplicar la tarifa (estandar, suite, o suite doble)");

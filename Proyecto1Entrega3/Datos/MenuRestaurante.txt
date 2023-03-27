@@ -2,14 +2,14 @@ nombreServicio;tipoCobro;lugarServicio;tipoProducto;rangoHoras;precio
 Desayuno buffet;persona;Restaurante;comida;6:30-10:00;45000
 Almuerzo buffet;persona;Restaurante;comida;12:00-15:00;50000
 Cena buffet;persona;Restaurante;comida;19:00-22:00;55000
-Café americano;bebida;Bar;bebida;6:00-23:00;5000
-Café con leche;bebida;Bar;bebida;6:00-23:00;7000
-Refresco en lata;bebida;Bar;bebida;6:00-23:00;6000
-Jugo natural;bebida;Bar;bebida;6:00-23:00;10000
-Hamburguesa con papas;comida rápida;Cafetería;comida;11:00-22:00;20000
-Pizza mediana;comida rápida;Cafetería;comida;11:00-22:00;25000
-Sándwich mixto;comida rápida;Cafetería;comida;11:00-22:00;15000
-Cerveza nacional;bebida;Bar;bebida;18:00-23:00;8000
-Cerveza importada;bebida;Bar;bebida;18:00-23:00;12000
-Coctel del día;bebida;Bar;bebida;18:00-23:00;15000
-Botella de vino;bebida;Bar;bebida;18:00-23:00;70000
+Café americano;persona;Bar;bebida;6:00-23:00;5000
+Café con leche;persona;Bar;bebida;6:00-23:00;7000
+Refresco en lata;persona;Bar;bebida;6:00-23:00;6000
+Jugo natural;persona;Bar;bebida;6:00-23:00;10000
+Hamburguesa con papas;persona;Cafetería;comida;11:00-22:00;20000
+Pizza mediana;persona;Cafetería;comida;11:00-22:00;25000
+Sándwich mixto;persona;Cafetería;comida;11:00-22:00;15000
+Cerveza nacional;persona;Bar;bebida;18:00-23:00;8000
+Cerveza importada;persona;Bar;bebida;18:00-23:00;12000
+Coctel del día;persona;Bar;bebida;18:00-23:00;15000
+Botella de vino;persona;Bar;bebida;18:00-23:00;70000
