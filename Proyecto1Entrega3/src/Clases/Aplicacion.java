@@ -84,6 +84,8 @@ public class Aplicacion {
             System.out.println(this.hotel.getControladorServicios().mostrarServicios());
             int id = Integer.parseInt(input("Ingrese el numero id del servicio"));
             Servicio servicio = this.hotel.getControladorServicios().getServicioId(id);
+            Boolean pagado = Boolean.parseBoolean(input("Ingrese si el pedido ya ha sido pagado (true/false)"));
+            servicio.setPagado(pagado);
             reserva.getServiciosConsumidos().add(servicio);
             
         }
@@ -91,6 +93,8 @@ public class Aplicacion {
             System.out.println(this.hotel.getControladorServicios().mostrarMenu());
             int id = Integer.parseInt(input("Ingrese el numero id del producto del restaurante"));
             ProductoRestaurante servicio = this.hotel.getControladorServicios().getMenuId(id);
+            Boolean pagado = Boolean.parseBoolean(input("Ingrese si el pedido ya ha sido pagado (true/false)"));
+            servicio.setPagado(pagado);
             reserva.getProductoMenuConsumido().add(servicio);
             
         }
@@ -140,6 +144,12 @@ public class Aplicacion {
         this.hotel.cargarMenuRestauranteYServicios("Proyecto1Entrega3/Datos/"+servicios,"Proyecto1Entrega3/Datos/"+menu);
     }
     public void cargarTarifaServicio() {
+        System.out.println(this.hotel.getControladorServicios().mostrarServicios());
+        int id = Integer.parseInt(input("Seleccione el servicio"));
+        Servicio servicio = this.hotel.getControladorServicios().getServicioId(id);
+        double nuevaTarifa = Double.parseDouble(input("ingrese el nuevo valor del servicio"));
+
+        servicio.setPrecio(nuevaTarifa);
     }
     public void cargarTarifaHabitacion() throws ParseException {
         String tipoHabitacion = input("Ingrese el tipo de habitación para aplicar la tarifa (estandar, suite, o suite doble)");
