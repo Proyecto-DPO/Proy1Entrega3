@@ -48,9 +48,6 @@ public class Huesped {
         return historialReserva;
     }
 
-    public ArrayList<String> getInfo() {
-        return null;
-    }
 
     
     
