@@ -18,12 +18,6 @@ public class Huesped {
         this.celular = celular;
         this.necesitaCama = necesitaCama;
     }
-
-    public ArrayList<Reserva> mostrarHistorialReservas(){
-
-        return historialReserva;
-    }
-
     public String getNombre() {
         return nombre;
     }
