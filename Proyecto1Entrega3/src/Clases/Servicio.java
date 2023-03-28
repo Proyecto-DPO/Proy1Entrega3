@@ -13,28 +13,15 @@ public class Servicio {
         this.lugarServicio = lugarServicio;
         this.precio = precio;
     }
-
     public String getNombreServicio() {
         return nombreServicio;
     }
-
-    public void setNombreServicio(String nombreServicio) {
-        this.nombreServicio = nombreServicio;
-    }
-
     public String getTipoCobro() {
         return tipoCobro;
     }
-
-    public void setTipoCobro(String tipoCobro) {
-        this.tipoCobro = tipoCobro;
-    }
+    
     public String getLugarServicio() {
         return lugarServicio;
-    }
-
-    public void setLugarServicio(String lugarServicio) {
-        this.lugarServicio = lugarServicio;
     }
 
     public double getPrecio() {
