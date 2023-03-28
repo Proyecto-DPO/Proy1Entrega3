@@ -49,9 +49,6 @@ public class Hotel {
     public ControladorServicios getControladorServicios(){
         return this.controladorServicios;}
 
-    // Requerimientos Empleado
-    public void registrarConsumo() {
-    }
     // Requerimientos Recepcionista
     public String ConsultarInventario() {
         return controladorHabitaciones.consultarInventario();
@@ -67,15 +64,11 @@ public class Hotel {
         return reserva.getIdReserva();
     }
     // Requerimientos Administrador
-    public void crearProductoRestaurante() {
-    }
     public void cargarMenuRestauranteYServicios(String servicios, String menu) throws IOException {
         controladorServicios.cargarServiciosYMenu(new File(servicios), new File(menu));
     }
     public void cargarTarifaServicio(String tipoHabitacion, double valorTarifa, String fechaInicial, String fechaFinal, String dias) throws ParseException {
         this.controladorHabitaciones.cargarTarifaServicio( tipoHabitacion,  valorTarifa,  fechaInicial,  fechaFinal,  dias);
-    }
-    public void cargarTarifaHabitacion() {
     }
     public void crearHabitacion(String ubicacion, boolean balcon, boolean vista, boolean cocinaIntegrada, String tipoHabitacion, ArrayList<ArrayList<String>> infoCamas) {
         this.controladorHabitaciones.crearHabitacion(ubicacion,balcon,vista,cocinaIntegrada,tipoHabitacion,infoCamas);
