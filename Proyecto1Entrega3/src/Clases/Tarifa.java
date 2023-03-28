@@ -7,7 +7,7 @@ public class Tarifa {
     private double valorTarifa;
     private String tipoHabitacion;
     
-    RangoFechas rangoFechas;
+    private RangoFechas rangoFechas;
 
     public Tarifa(String diasSemana, double valorTarifa, String tipoHabitacion, Date fechaInicial, Date fechaFinal) {
             this.diasSemana = diasSemana;
