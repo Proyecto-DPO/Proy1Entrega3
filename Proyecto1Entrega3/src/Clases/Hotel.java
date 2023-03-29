@@ -8,6 +8,9 @@ import java.text.ParseException;
 import java.util.ArrayList;
 
 public class Hotel {
+
+    private boolean habitacionesCargadas;
+
     private ControladorHabitaciones controladorHabitaciones;
     private ControladorHuespedes controladorHuespedes;
     private ControladorReservas controladorReservas;
@@ -15,6 +18,7 @@ public class Hotel {
 
     public ArrayList<Usuario> usuarios;
     public Hotel(){
+        this.habitacionesCargadas = false;
         this.usuarios = new ArrayList<Usuario>();
         this.controladorHabitaciones = new ControladorHabitaciones();
         this.controladorHuespedes = new ControladorHuespedes();
@@ -58,7 +62,17 @@ public class Hotel {
     public int crearReserva(ArrayList<ArrayList<String>> infoHuespedes, String fechaInicial, String fechaFinal, String idHabitacion) throws ParseException {
         Habitacion habitacion = controladorHabitaciones.getHabitacion(Integer.parseInt(idHabitacion));
         Reserva reserva = controladorReservas.crearReserva(infoHuespedes,fechaInicial,fechaFinal,habitacion);
+        ArrayList<Huesped> huespedes = reserva.getHuespedes();
+        for(int i=0;i<huespedes.size();i++){
+            String nombre = huespedes.get(i).getNombre();
+            int documento = huespedes.get(i).getDocumento();
+            String email = huespedes.get(i).getEmail();
+            String celular = huespedes.get(i).getCelular();
+            boolean necesitaCama = huespedes.get(i).isNecesitaCama();
 
+            Huesped huesped = controladorHuespedes.getHuesped(nombre, documento, email, celular, necesitaCama);
+            huesped.getHistorialReserva().add(reserva);
+        }
         controladorHabitaciones.getHabitacion(Integer.parseInt(idHabitacion)).getReservas().add(reserva);
 
         return reserva.getIdReserva();
@@ -73,12 +87,21 @@ public class Hotel {
     public void crearHabitacion(String ubicacion, boolean balcon, boolean vista, boolean cocinaIntegrada, String tipoHabitacion, ArrayList<ArrayList<String>> infoCamas) {
         this.controladorHabitaciones.crearHabitacion(ubicacion,balcon,vista,cocinaIntegrada,tipoHabitacion,infoCamas);
     }
-    public void cargarArchivoHabitaciones(String archivoHabitaciones, String archivoCamas) throws NumberFormatException, IOException {
-        String rutaHabitaciones = "Proyecto1Entrega3/Datos/" + archivoHabitaciones;
-        String rutaCamas = "Proyecto1Entrega3/Datos/" + archivoCamas;
+    public void cargarArchivoHabitaciones() throws NumberFormatException, IOException {
+        try {
+            controladorHabitaciones.cargarTarifas();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        controladorHuespedes.cargarHuespedes();
+        String rutaHabitaciones = "Proyecto1Entrega3/Datos/Habitaciones.txt";
+        String rutaCamas = "Proyecto1Entrega3/Datos/Camas.txt";
         File ruta_archivoHabitaciones = new File(rutaHabitaciones);
         File ruta_archivoCamas = new File(rutaCamas);
         this.controladorHabitaciones.cargarArchivoHabitaciones(ruta_archivoHabitaciones,ruta_archivoCamas);
-        
+        habitacionesCargadas = true;
     }
-}
+    public boolean isHabitacionesCargadas() {
+        return habitacionesCargadas;
+    }
+}   

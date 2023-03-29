@@ -1,4 +1,10 @@
 package Clases;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -22,16 +28,31 @@ public class ControladorReservas {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         RangoFechas rangoFecha = new RangoFechas(sdf.parse(fechaInicial), sdf.parse(fechaFinal));
         ArrayList<Huesped> huespedes = new ArrayList<Huesped>();
+        String huespedesString = "";
         for(int i=0;i<infoHuespedes.size();i++){
             String nombre = infoHuespedes.get(i).get(0);
             int documento = Integer.parseInt(infoHuespedes.get(i).get(1));
             String email = infoHuespedes.get(i).get(2);
             String celular = (infoHuespedes.get(i).get(3));
             boolean necesitaCama = Boolean.parseBoolean(infoHuespedes.get(i).get(4));
+            if(i == infoHuespedes.size()-1){
+                huespedesString += nombre+":"+documento+":"+email+":"+celular+":"+necesitaCama+"-";
+            }
+            else{
+                huespedesString += nombre+":"+documento;
+            }
             Huesped huesped = new Huesped(nombre, documento, email, celular, necesitaCama);
             huespedes.add(huesped);
         }
-        Reserva reserva = new Reserva(rangoFecha,huespedes,habitacion, reservas.size());
+        int id = reservas.size();
+        Reserva reserva = new Reserva(rangoFecha,huespedes,habitacion, id);
+        //id;idHabitacion;fechaInicial;fechaFinal;huespedes
+        try {
+            Files.write(Paths.get("Proyecto1Entrega3/Datos/Reservas.txt"),("\n"+id+";"+reserva.getHabitacion().getId()+";"+fechaInicial+";"+fechaFinal+";"+huespedesString).getBytes(), StandardOpenOption.APPEND );
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         reservas.add(reserva);
 
         return reserva;
@@ -103,6 +124,23 @@ public class ControladorReservas {
         public ArrayList<Reserva> getReservas(){
             return this.reservas;
         }
+    public void cargarReservas(ControladorHabitaciones controladorHabitaciones) throws IOException, ParseException{
+        try (BufferedReader br = new BufferedReader(new FileReader("Proyecto1Entrega3/Datos/Reservas.txt"))) {
+            String st;
+            br.readLine();
+            while ((st = br.readLine()) != null) {
+                String[] split = st.split(";");
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                RangoFechas rangoFecha = new RangoFechas(sdf.parse(split[2]), sdf.parse(split[3]));
+                ArrayList<Huesped> huespedes= new ArrayList<Huesped>();
+                String[] split2 = split[4].split("-");
+                for(int i=0;i<split2.length;i++){
+                    String[] split3 = split2[i].split(":");
+                    huespedes.add(new Huesped(split3[0],Integer.parseInt(split3[1]),split3[2],split3[3], Boolean.parseBoolean(split3[4])));
+                }
+                Reserva reserva = new Reserva(rangoFecha,huespedes,controladorHabitaciones.getHabitacion(Integer.parseInt( split[1])),Integer.parseInt(split[0]));
+                this.reservas.add(reserva);}}
+    }
 }
 
 

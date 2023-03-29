@@ -2,8 +2,12 @@ package Clases;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -42,12 +46,46 @@ public class ControladorHabitaciones {
     }
     public void crearHabitacion(String ubicacion, boolean balcon, boolean vista, boolean cocinaIntegrada,
         String tipoHabitacion, ArrayList<ArrayList<String>> infoCamas) {
-            Habitacion habitacion = new Habitacion((habitaciones.size()+1), ubicacion, balcon, vista, cocinaIntegrada, tipoHabitacion);
+
+            int id = (habitaciones.size()+1);
+            Habitacion habitacion = new Habitacion(id, ubicacion, balcon, vista, cocinaIntegrada, tipoHabitacion);
             for(int i=0; i<infoCamas.size();i++){
                 ArrayList<String> info = infoCamas.get(i);
                 Cama cama = new Cama(info.get(0),Integer.parseInt(info.get(1)),Boolean.parseBoolean(info.get(2)));
-                habitacion.addCama(cama);}
+                habitacion.addCama(cama);
+            }
+            for(int i=0;i< habitacion.getCamas().size();i++){
+                Cama cama = habitacion.getCamas().get(i);
+                if(i==0){
+                try {
+                    Files.write(Paths.get("Proyecto1Entrega3/Datos/Camas.txt"),(id+";"+cama.getTamaño()+";"+cama.getCantidadPersonas()+";"+cama.isSoloNiños()).getBytes(), StandardOpenOption.APPEND );
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }}
+                else if(i == habitacion.getCamas().size()-1){
+                    try {
+                        Files.write(Paths.get("Proyecto1Entrega3/Datos/Camas.txt"),("\n"+id+";"+cama.getTamaño()+";"+cama.getCantidadPersonas()+";"+cama.isSoloNiños()+"\n").getBytes(), StandardOpenOption.APPEND );
+                    } catch (IOException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+                else{
+                    try {
+                        Files.write(Paths.get("Proyecto1Entrega3/Datos/Camas.txt"),("\n"+id+";"+cama.getTamaño()+";"+cama.getCantidadPersonas()+";"+cama.isSoloNiños()).getBytes(), StandardOpenOption.APPEND );
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
             this.habitaciones.add(habitacion);
+            try {
+                Files.write(Paths.get("Proyecto1Entrega3/Datos/Habitaciones.txt"),("\n"+id+";"+habitacion.getUbicacion()+";"+habitacion.isBalcon()+";"+habitacion.isVista()+";"+habitacion.isCocinaIntegrada()+";"+habitacion.getTipoHabitacion()).getBytes(), StandardOpenOption.APPEND );
+            } catch (IOException e) {
+                
+                e.printStackTrace();
+            }
+            
     }
     public void cargarTarifaServicio(String tipoHabitacion, double valorTarifa, String fechaInicial, String fechaFinal,
             String dias) throws ParseException {
@@ -55,7 +93,13 @@ public class ControladorHabitaciones {
                 Date dateInicial = sdf.parse(fechaInicial);
                 Date dateFinal = sdf.parse(fechaFinal);
                 Tarifa tarifa = new Tarifa(dias, valorTarifa, tipoHabitacion, dateInicial, dateFinal);
-                this.tarifasExistentes.get(tipoHabitacion).add(tarifa);            
+                this.tarifasExistentes.get(tipoHabitacion).add(tarifa);   
+                try {
+                    Files.write(Paths.get("Proyecto1Entrega3/Datos/Tarifas.txt"),("\n"+dias+";"+valorTarifa+";"+tipoHabitacion+";"+fechaInicial+";"+fechaFinal).getBytes(), StandardOpenOption.APPEND );
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                
     }
     public String numDayToString(int numero){
         String String = "";
@@ -113,5 +157,17 @@ public class ControladorHabitaciones {
         }
 
         return retorno;
+    }
+    public void cargarTarifas() throws FileNotFoundException, IOException, ParseException{
+        try (BufferedReader br = new BufferedReader(new FileReader("Proyecto1Entrega3/Datos/Tarifas.txt"))) {
+            String st;
+            br.readLine();
+            while ((st = br.readLine()) != null) {
+                String[] split = st.split(";");
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                Date dateInicial = sdf.parse(split[3]);
+                Date dateFinal = sdf.parse(split[4]);
+                Tarifa tarifa = new Tarifa(split[0], Double.parseDouble(split[1]), split[2], dateInicial, dateFinal);
+                tarifasExistentes.get(split[2]).add(tarifa);}}
     }
 }

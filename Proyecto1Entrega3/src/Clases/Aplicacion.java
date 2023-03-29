@@ -157,8 +157,7 @@ public class Aplicacion {
         String rangoHoras = input("Ingrese el rango de horas (HH:mm-HH:mm)");
         double precio = Double.parseDouble(input("Ingrese el precio:"));
 
-        ProductoRestaurante productoRestaurante = new ProductoRestaurante(nombre, "persona", "Restaurante", precio, rangoHoras, tipoProducto);
-        this.hotel.getControladorServicios().getMenu().add(productoRestaurante);
+        this.hotel.getControladorServicios().crearProductoRestaurante(nombre,tipoProducto,rangoHoras,precio);
     }
     public void cargarMenuRestauranteYServicios() throws IOException {
         String servicios = input("Ingrese el nombre del archivo de servicios");
@@ -210,13 +209,12 @@ public class Aplicacion {
         this.hotel.crearHabitacion(ubicacion, Boolean.parseBoolean(balcon), Boolean.parseBoolean(vista),
         Boolean.parseBoolean(cocinaIntegrada), tipoHabitacion, infoCamas);}
     public void cargarArchivoHabitaciones() throws NumberFormatException, IOException {
-        String archivoHabitaciones = input("Ingrese el nombre del archivo de habitaciones");
-        String archivoCamas = input("Ingrese el nombre del archivo de camas");
-        this.hotel.cargarArchivoHabitaciones(archivoHabitaciones,archivoCamas);}
+        this.hotel.cargarArchivoHabitaciones();
+        System.out.println("Habitaciones y camas cargados exitosamente");}
 
     public void mostrarMenu(Usuario user){
         if(user.getRol().equals("Administrador")){
-            System.out.println("1. Cargar archivo habitaciones.");
+            System.out.println("1. Cargar archivo de habitaciones,camas, tarifas, reservas y huespedes.");
             System.out.println("2. Crear habitacion en el inventario.");
             System.out.println("3. Cargar tarifa para un tipo de habitación");
             System.out.println("4. Establecer o cambiar tarifa para un servicio.");

@@ -4,6 +4,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 
 public class ControladorServicios {
@@ -57,5 +60,13 @@ public class ControladorServicios {
     public ArrayList<ProductoRestaurante> getMenu() {
         return menu;
     }
-    
+    public void crearProductoRestaurante(String nombre, String tipoProducto, String rangoHoras, double precio){
+        ProductoRestaurante productoRestaurante =  new ProductoRestaurante(nombre, "persona", "Restaurante", precio, rangoHoras, tipoProducto);
+        menu.add(productoRestaurante);
+        try {
+            Files.write(Paths.get("Proyecto1Entrega3/Datos/MenuRestaurante.txt"),("\n"+nombre+";persona;Restaurante;"+tipoProducto+";"+rangoHoras+";"+precio).getBytes(), StandardOpenOption.APPEND );
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
