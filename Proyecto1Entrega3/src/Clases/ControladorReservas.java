@@ -56,41 +56,43 @@ public class ControladorReservas {
 
         return reserva;
     }
-    public String generarFactura(){
-
-        String factura = "";
-        int len = reservas.size();
-
-        for(int i = 0;i<len;i++){
-
-
-            Reserva reserva = reservas.get(i);
-            ArrayList<Huesped> huespedes = reserva.getHuespedes();
-            int len2 = huespedes.size();
-
-            for(int j = 0;j<len2;j++){
-
-                Huesped huesped = huespedes.get(j);
-                ArrayList<String> huespedInfo = huesped.getInfo();
-
-                int len3 = huespedInfo.size();
-
-                for(int z = 0;z<len3;z++){
-
-                    String line = huespedInfo.get(z);
-                    factura += line; 
-                    factura += "\n";
-
-                    
-                }
-                
+    public String generarFactura(Reserva reserva, ControladorHabitaciones controladorHabitaciones){
+        String retorno = "Reserva " + reserva.getIdReserva()  + "\n";
+        Habitacion habitacion =  reserva.getHabitacion();
+        retorno += "Habitación " + habitacion.getTipoHabitacion() + " para " + habitacion.getEspacio() + " personas.\n";
+        retorno += "Rango de fechas " + reserva.getRangoFecha() + ".\n"; 
+        retorno += "Precio dadas las tarifas: " + controladorHabitaciones.getPrecioHabitacion(habitacion, reserva.getFechas()) + "\n";
+        double totalPagar = controladorHabitaciones.getPrecioHabitacion(habitacion, reserva.getFechas());
+        for(int i=0;i<reserva.getHuespedes().size();i++){
+            Huesped huesped = reserva.getHuespedes().get(i);
+            retorno += "    Huesped " + (i+1) + ":\n";
+            retorno += "        Nombre:" + huesped.getNombre()+"\n";
+            retorno += "        Documento:" + huesped.getDocumento()+"\n";
+            retorno += "        Email:" + huesped.getEmail()+"\n";
+            retorno += "        Celular:" + huesped.getCelular()+"\n";}
+        retorno += "    Servicios Consumidos:\n";
+        for(int i=0;i<reserva.getServiciosConsumidos().size();i++){
+            Servicio servicio = reserva.getServiciosConsumidos().get(i);
+            if(servicio.isPagado()){
+                retorno += "        " + servicio.getNombreServicio() +"*: " + servicio.getPrecio() + "$\n";
             }
+            else{
+                retorno += "        " + servicio.getNombreServicio() +"*: " + servicio.getPrecio() + "$\n";
+                totalPagar += servicio.getPrecio();
+            }}
+        retorno += "    Productos consumidos del restaurante:\n";
+        for(int i=0;i<reserva.getProductoMenuConsumido().size();i++){
+            ProductoRestaurante productoRestaurante = reserva.getProductoMenuConsumido().get(i);
+            if(productoRestaurante.isPagado()){
+                retorno += "        " + productoRestaurante.getNombreServicio() +"*: " + productoRestaurante.getPrecio() + "$\n";
+            }
+            else{
+                retorno += "        " + productoRestaurante.getNombreServicio() +"*: " + productoRestaurante.getPrecio() + "$\n";
+                totalPagar += productoRestaurante.getPrecio();
+        }}
 
-        }
-
-        //Falta inlcuir la información de los servicios utilizados por el huesped
-
-        return factura;
+        retorno += "TOTAL A PAGAR: " + totalPagar + "$\nLos Productos con * ya fueron pagados y no son contados en el precio final.";
+        return retorno;
     }
 
     public Reserva getReservaId(int id){
@@ -141,6 +143,13 @@ public class ControladorReservas {
                 Reserva reserva = new Reserva(rangoFecha,huespedes,habitacion,Integer.parseInt(split[0]));
                 habitacion.getReservas().add(reserva);
                 this.reservas.add(reserva);}}
+    }
+    public String mostrarReservas(){
+        String st = "";
+        for(int i=0;i<reservas.size();i++){
+            st += i + ".    "+reservas.get(i).getRangoFecha() + "   id de la reserva:" + reservas.get(i).getIdReserva() + "\n"; 
+        }
+        return st;
     }
 }
 

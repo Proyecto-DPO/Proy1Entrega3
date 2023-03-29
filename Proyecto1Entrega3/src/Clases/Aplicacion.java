@@ -105,6 +105,10 @@ public class Aplicacion {
         System.out.println(hotel.ConsultarInventario());
     }
     public void GenerarFacturaReserva() {
+        System.out.println(hotel.getControladorReservas().mostrarReservas());
+        int id = Integer.parseInt(input("Ingrese el index de la reserva deseada"));
+        hotel.GenerarFacturaReserva(hotel.getControladorReservas().getReservaId(id + 1));
+        System.out.println("Factura generada existosamente.");
     }
     public void crearReserva() throws ParseException {
         int numHuespedes = Integer.parseInt(input("Ingrese el numero de huespedes de la reserva"));

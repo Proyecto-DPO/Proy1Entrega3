@@ -1,3 +1,4 @@
 diasSemana;valorTarifa;tipoHabitacion;fechaInicial;fechaFinal
 LMX;4000.0;estandar;2023-04-01;2023-04-02
 SD;60000.0;suite;2023-04-07;2023-04-09
+LMXJVSD;1.0;estandar;2023-04-01;2023-04-05

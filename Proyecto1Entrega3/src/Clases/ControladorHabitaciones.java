@@ -170,4 +170,28 @@ public class ControladorHabitaciones {
                 Tarifa tarifa = new Tarifa(split[0], Double.parseDouble(split[1]), split[2], dateInicial, dateFinal);
                 tarifasExistentes.get(split[2]).add(tarifa);}}
     }
+    public double getPrecioDia(Habitacion habitacion, Date fecha){
+        double min = 10e10;
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(fecha);
+        String diaSemana = numDayToString(calendar.get(Calendar.DAY_OF_WEEK));
+        for(int i=0;i<tarifasExistentes.get(habitacion.getTipoHabitacion()).size();i++){
+            Tarifa tarifa = tarifasExistentes.get(habitacion.getTipoHabitacion()).get(i);
+            if(tarifa.tarifaAplicaDia(diaSemana) && tarifa.getRangoFechas().fechaEnRango(fecha) && (tarifa.getValorTarifa() < min)){
+                min = tarifa.getValorTarifa();
+            }
+        }
+        return min;
+    }
+    public double getPrecioHabitacion(Habitacion habitacion, RangoFechas rangoFechas){
+        double precio = 0;
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime( rangoFechas.getFechaInicial());
+        while(rangoFechas.fechaEnRango(calendar.getTime()) == true){
+            precio += getPrecioDia(habitacion, calendar.getTime());
+            calendar.add(Calendar.DAY_OF_YEAR, 1); 
+        }
+
+        return precio;
+    }
 }

@@ -71,4 +71,7 @@ public class Reserva {
     public Date getFechaInicial(){
         return this.rangoFecha.getFechaInicial();
     }
-}   
+  
+    public RangoFechas getFechas(){
+        return rangoFecha;}   
+}

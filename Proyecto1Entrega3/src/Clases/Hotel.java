@@ -3,6 +3,7 @@ package Clases;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -57,7 +58,22 @@ public class Hotel {
     public String ConsultarInventario() {
         return controladorHabitaciones.consultarInventario();
     }
-    public void GenerarFacturaReserva() {
+    public void GenerarFacturaReserva(Reserva reserva) {
+        File rutaFactura = new File("Proyecto1Entrega3/Facturas/" + Integer.toString(reserva.getIdReserva())+".txt");
+		try {
+            rutaFactura.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+		FileWriter writer;
+        try {
+            writer = new FileWriter(rutaFactura);
+            writer.write(controladorReservas.generarFactura(reserva, controladorHabitaciones));
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
     public int crearReserva(ArrayList<ArrayList<String>> infoHuespedes, String fechaInicial, String fechaFinal, String idHabitacion) throws ParseException {
         Habitacion habitacion = controladorHabitaciones.getHabitacion(Integer.parseInt(idHabitacion));
