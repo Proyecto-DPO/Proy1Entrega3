@@ -99,6 +99,11 @@ public class Hotel {
         File ruta_archivoHabitaciones = new File(rutaHabitaciones);
         File ruta_archivoCamas = new File(rutaCamas);
         this.controladorHabitaciones.cargarArchivoHabitaciones(ruta_archivoHabitaciones,ruta_archivoCamas);
+        try {
+            controladorReservas.cargarReservas(controladorHabitaciones);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         habitacionesCargadas = true;
     }
     public boolean isHabitacionesCargadas() {

@@ -1,1 +1,2 @@
-id;idHabitacion;fechaInicial;fechaFinal;huespedes
+id;idHabitacion;fechaInicial;fechaFinal;Huespedes
+0;10;2023-04-01;2023-04-04;Harol:1097:a:a:true-nipur:12:a:a:true

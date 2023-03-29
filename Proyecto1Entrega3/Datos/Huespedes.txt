@@ -1,1 +1,8 @@
 nombre;documento;email;celular;necesitaCama
+Nicolas;1092850219;n.ruizp2;318849;true
+Harold;1234;h.coca;312;true
+nicolas;1098;n.ruizp2;315;true
+hicolas;109;n.ruizp2;23;true
+harol;12;ao;o;true
+Harol;1097;a;a;true
+nipur;12;a;a;true

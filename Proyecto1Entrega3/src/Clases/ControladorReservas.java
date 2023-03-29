@@ -36,23 +36,22 @@ public class ControladorReservas {
             String celular = (infoHuespedes.get(i).get(3));
             boolean necesitaCama = Boolean.parseBoolean(infoHuespedes.get(i).get(4));
             if(i == infoHuespedes.size()-1){
-                huespedesString += nombre+":"+documento+":"+email+":"+celular+":"+necesitaCama+"-";
+                huespedesString += nombre+":"+documento+":"+email+":"+celular+":"+necesitaCama;
             }
             else{
-                huespedesString += nombre+":"+documento;
+                huespedesString += nombre+":"+documento+":"+email+":"+celular+":"+necesitaCama+"-";
             }
             Huesped huesped = new Huesped(nombre, documento, email, celular, necesitaCama);
             huespedes.add(huesped);
         }
         int id = reservas.size();
         Reserva reserva = new Reserva(rangoFecha,huespedes,habitacion, id);
-        //id;idHabitacion;fechaInicial;fechaFinal;huespedes
         try {
             Files.write(Paths.get("Proyecto1Entrega3/Datos/Reservas.txt"),("\n"+id+";"+reserva.getHabitacion().getId()+";"+fechaInicial+";"+fechaFinal+";"+huespedesString).getBytes(), StandardOpenOption.APPEND );
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        habitacion.getReservas().add(reserva);
         reservas.add(reserva);
 
         return reserva;
@@ -138,7 +137,9 @@ public class ControladorReservas {
                     String[] split3 = split2[i].split(":");
                     huespedes.add(new Huesped(split3[0],Integer.parseInt(split3[1]),split3[2],split3[3], Boolean.parseBoolean(split3[4])));
                 }
-                Reserva reserva = new Reserva(rangoFecha,huespedes,controladorHabitaciones.getHabitacion(Integer.parseInt( split[1])),Integer.parseInt(split[0]));
+                Habitacion habitacion = controladorHabitaciones.getHabitacion(Integer.parseInt( split[1]));
+                Reserva reserva = new Reserva(rangoFecha,huespedes,habitacion,Integer.parseInt(split[0]));
+                habitacion.getReservas().add(reserva);
                 this.reservas.add(reserva);}}
     }
 }

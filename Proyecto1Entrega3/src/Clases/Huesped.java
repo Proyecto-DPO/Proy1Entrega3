@@ -17,6 +17,8 @@ public class Huesped {
         this.email = email;
         this.celular = celular;
         this.necesitaCama = necesitaCama;
+
+        this.historialReserva = new ArrayList<Reserva>();
     }
     public String getNombre() {
         return nombre;
