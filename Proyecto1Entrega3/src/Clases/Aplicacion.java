@@ -146,7 +146,23 @@ public class Aplicacion {
         }
         String fechaInicial = input("Ingrese la fecha de inicio de la reserva (yyyy-mm-dd)");
         String fechaFinal = input("Ingrese la fecha de finalización de la reserva (yyyy-mm-dd)");
-        String idHabitacion = input("Ingrese el id de la habitación de la reserva");
+        String idHabitacion = "";
+        boolean continuar1 = true;
+        boolean continuar2 = true;
+        while(continuar1 || continuar2){
+        idHabitacion = input("Ingrese el id de la habitación de la reserva");
+        Habitacion habitacion = hotel.getControladorHabitaciones().getHabitacion(Integer.parseInt(idHabitacion));
+        if(hotel.confirmarDisponibilidad(fechaInicial,fechaFinal,idHabitacion)){
+            continuar2 = false;
+        }
+        else{System.out.println("La habitación no está disponible en esa fecha.");}
+        if(numHuespedes <= habitacion.getEspacio()){
+            continuar2 = false;
+        }
+        else{
+            System.out.println("No hay suficiente espacio en la habitación para el número de huespedes.");
+        }}
+
 
         int id = this.hotel.crearReserva(infoHuespedes,fechaInicial,fechaFinal,idHabitacion);
 

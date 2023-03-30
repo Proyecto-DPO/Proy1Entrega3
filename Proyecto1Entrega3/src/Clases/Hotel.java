@@ -6,7 +6,10 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class Hotel {
 
@@ -148,5 +151,32 @@ public class Hotel {
     }
     public boolean isHabitacionesCargadas() {
         return habitacionesCargadas;
+    }
+    public boolean confirmarDisponibilidad(String fechaInicial, String fechaFinal, String idHabitacion) {
+        boolean disponible = true;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Habitacion habitacion = controladorHabitaciones.getHabitacion(Integer.parseInt(idHabitacion));
+        try {
+            Date dateInicial = sdf.parse(fechaInicial);
+            Date dateFinal = sdf.parse(fechaFinal);
+            RangoFechas rangoFechas = new RangoFechas(dateInicial, dateFinal);
+            Calendar calInicial = Calendar.getInstance();
+            Calendar calFinal = Calendar.getInstance();
+            calInicial.setTime(dateInicial);
+            calFinal.setTime(dateFinal);
+            while(rangoFechas.fechaEnRango(calInicial.getTime())){
+                for(int i=0;i<habitacion.getReservas().size();i++){
+                    Reserva reserva = habitacion.getReservas().get(i);
+                    if(reserva.getFechas().fechaEnRango(calInicial.getTime())){
+                        disponible = false;
+                    }
+                }
+                calInicial.add(Calendar.DAY_OF_YEAR, 1);
+            }
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return disponible;
     }
 }   
