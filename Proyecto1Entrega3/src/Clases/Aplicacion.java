@@ -54,6 +54,7 @@ public class Aplicacion {
             else if(opcion.equals("2")){GenerarFacturaReserva();}
             else if(opcion.equals("3")){ConsultarInventario();}
             else if(opcion.equals("4")){cancelarReserva();}
+            else if(opcion.equals("5")){archivoLog();}
             else if(opcion.equals("0")){ingresarUsuario();}}
         else{
             if(opcion.equals("1")){registrarConsumo();}
@@ -101,6 +102,22 @@ public class Aplicacion {
         }
     }
     // Requerimientos Recepcionista
+    private void archivoLog() {
+        int num = Integer.parseInt(input("Ingrese el número de huespedes para el archivo"));
+        ArrayList<ArrayList<String>> info = new ArrayList<ArrayList<String>>();
+        for(int i=0; i < num;i++){
+            ArrayList<String> info1 = new ArrayList<String>();
+            String nombre = input("Ingrese el nombre del huesped " + (i+1));
+            String documento =  input("Ingrese el documento del huesped " + (i+1));
+            info1.add(nombre);
+            info1.add(documento);
+
+            info.add(info1);
+            }
+        int id = hotel.archivoLog(info);
+        System.out.println("Se generó exitosamente el archivo log con id " + id +".");
+    }
+    
     public void ConsultarInventario() {
         System.out.println(hotel.ConsultarInventario());
     }
@@ -232,6 +249,7 @@ public class Aplicacion {
             System.out.println("2. Generar factura para una reserva.");
             System.out.println("3. Consultar inventario de habitaciones.");
             System.out.println("4. Cancelar Reserva.");
+            System.out.println("5. Generar archivo log de uno o más huéspedes.");
             System.out.println("0. Cerrar.");}
         
         else if(user.getRol().equals("Empleado")){

@@ -55,6 +55,30 @@ public class Hotel {
         return this.controladorServicios;}
 
     // Requerimientos Recepcionista
+    public int archivoLog(ArrayList<ArrayList<String>> info) {
+        ArrayList<Huesped> huespedes = new ArrayList<Huesped>();
+        int id = 0;
+        for(int i=0;i<info.size();i++){
+            int documento = Integer.parseInt(info.get(i).get(1));
+            huespedes.add(controladorHuespedes.getHuesped(info.get(i).get(0),documento, "-", "-", false));
+            id += documento;
+            }
+        File rutaFactura = new File("Proyecto1Entrega3/Logs/" + id +".txt");
+        try {
+            rutaFactura.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        FileWriter writer;
+        try {
+            writer = new FileWriter(rutaFactura);
+            writer.write(controladorHuespedes.generarArchivoLog(huespedes));
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return id;
+    }
     public String ConsultarInventario() {
         return controladorHabitaciones.consultarInventario();
     }
@@ -116,7 +140,7 @@ public class Hotel {
         File ruta_archivoCamas = new File(rutaCamas);
         this.controladorHabitaciones.cargarArchivoHabitaciones(ruta_archivoHabitaciones,ruta_archivoCamas);
         try {
-            controladorReservas.cargarReservas(controladorHabitaciones);
+            controladorReservas.cargarReservas(controladorHabitaciones,controladorHuespedes);
         } catch (ParseException e) {
             e.printStackTrace();
         }

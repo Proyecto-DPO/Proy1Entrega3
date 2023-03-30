@@ -6,3 +6,5 @@ hicolas;109;n.ruizp2;23;true
 harol;12;ao;o;true
 Harol;1097;a;a;true
 nipur;12;a;a;true
+Harold;1097;-;-;false
+johan;123;a;a;false

@@ -2,7 +2,9 @@ package Clases;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.text.ParseException;
@@ -10,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class ControladorReservas {
     
@@ -45,9 +48,9 @@ public class ControladorReservas {
             huespedes.add(huesped);
         }
         int id = reservas.size();
-        Reserva reserva = new Reserva(rangoFecha,huespedes,habitacion, id);
+        Reserva reserva = new Reserva(rangoFecha,huespedes,habitacion, id,false);
         try {
-            Files.write(Paths.get("Proyecto1Entrega3/Datos/Reservas.txt"),("\n"+id+";"+reserva.getHabitacion().getId()+";"+fechaInicial+";"+fechaFinal+";"+huespedesString).getBytes(), StandardOpenOption.APPEND );
+            Files.write(Paths.get("Proyecto1Entrega3/Datos/Reservas.txt"),("\n"+id+";"+reserva.getHabitacion().getId()+";"+fechaInicial+";"+fechaFinal+";"+huespedesString+";false").getBytes(), StandardOpenOption.APPEND );
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -110,6 +113,7 @@ public class ControladorReservas {
         return reservasDoc;}
 
         public boolean cancelarReserva(int id){
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             boolean retorno = false;
             Reserva reserva = getReservaId(id+1);
             Date fechaInicial = reserva.getFechaInicial();
@@ -119,13 +123,38 @@ public class ControladorReservas {
                 reservas.remove(id);
                 retorno = true;
             }
+            if(retorno){
+                String huespedesString = "";
+                ArrayList<Huesped> infoHuespedes = reserva.getHuespedes();
+                for(int i=0;i<infoHuespedes.size();i++){
+                    String nombre = infoHuespedes.get(i).getNombre();
+                    int documento = infoHuespedes.get(i).getDocumento();
+                    String email = infoHuespedes.get(i).getEmail();
+                    String celular = infoHuespedes.get(i).getCelular();
+                    boolean necesitaCama = infoHuespedes.get(i).isNecesitaCama();
+                    if(i == infoHuespedes.size()-1){
+                    huespedesString += nombre+":"+documento+":"+email+":"+celular+":"+necesitaCama;
+                    }
+                     else{
+                    huespedesString += nombre+":"+documento+":"+email+":"+celular+":"+necesitaCama+"-";
+                    }
+                Path path = Paths.get("Proyecto1Entrega3/Datos/Reservas.txt");
+                List<String> lines;
+                try {
+                    lines = Files.readAllLines(path, StandardCharsets.UTF_8);
+                    lines.set( id +1,id+";"+reserva.getHabitacion().getId()+";"+sdf.format(fechaInicial)+";"+sdf.format(reserva.getFechas().getFechaFinal())+";"+huespedesString+";true" );
+                    //Files.write(path, lines, StandardCharsets.UTF_8);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }}
             return retorno;
         }
 
         public ArrayList<Reserva> getReservas(){
             return this.reservas;
         }
-    public void cargarReservas(ControladorHabitaciones controladorHabitaciones) throws IOException, ParseException{
+    public void cargarReservas(ControladorHabitaciones controladorHabitaciones, ControladorHuespedes controladorHuespedes) throws IOException, ParseException{
         try (BufferedReader br = new BufferedReader(new FileReader("Proyecto1Entrega3/Datos/Reservas.txt"))) {
             String st;
             br.readLine();
@@ -137,12 +166,16 @@ public class ControladorReservas {
                 String[] split2 = split[4].split("-");
                 for(int i=0;i<split2.length;i++){
                     String[] split3 = split2[i].split(":");
-                    huespedes.add(new Huesped(split3[0],Integer.parseInt(split3[1]),split3[2],split3[3], Boolean.parseBoolean(split3[4])));
+                    Huesped huesped = controladorHuespedes.getHuesped(split3[0],Integer.parseInt(split3[1]),split3[2],split3[3], Boolean.parseBoolean(split3[4]));
+                    huespedes.add(huesped);
                 }
                 Habitacion habitacion = controladorHabitaciones.getHabitacion(Integer.parseInt( split[1]));
-                Reserva reserva = new Reserva(rangoFecha,huespedes,habitacion,Integer.parseInt(split[0]));
+                Reserva reserva = new Reserva(rangoFecha,huespedes,habitacion,Integer.parseInt(split[0]),Boolean.parseBoolean(split[5]));
                 habitacion.getReservas().add(reserva);
-                this.reservas.add(reserva);}}
+                this.reservas.add(reserva);
+                for(int i=0;i<huespedes.size();i++){
+                    huespedes.get(i).getHistorialReserva().add(reserva);
+                }}}
     }
     public String mostrarReservas(){
         String st = "";

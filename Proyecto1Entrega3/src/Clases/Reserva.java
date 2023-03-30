@@ -9,16 +9,18 @@ public class Reserva {
     private ArrayList<Huesped> huespedes;
     private Habitacion habitacion;
     private int idReserva;
+    private boolean cancelado;
     private ArrayList<ProductoRestaurante> productoMenuConsumido;
     private ArrayList<Servicio> serviciosConsumidos;
 
 
-    public Reserva(RangoFechas rangoFecha,ArrayList<Huesped> huespedes, Habitacion habitacion, int idReserva){
+    public Reserva(RangoFechas rangoFecha,ArrayList<Huesped> huespedes, Habitacion habitacion, int idReserva, boolean cancelado){
 
         this.rangoFecha = rangoFecha;
         this.huespedes = huespedes;
         this.habitacion = habitacion;
         this.idReserva = idReserva;
+        this.cancelado = cancelado;
         this.productoMenuConsumido = new ArrayList<ProductoRestaurante>();
         this.serviciosConsumidos = new ArrayList<Servicio>();
     }
@@ -73,5 +75,13 @@ public class Reserva {
     }
   
     public RangoFechas getFechas(){
-        return rangoFecha;}   
+        return rangoFecha;}
+
+    public boolean isCancelado() {
+        return cancelado;
+    }   
+    public void setCancelado(boolean bool){
+        this.cancelado = bool;
+    }
+        
 }

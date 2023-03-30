@@ -1,0 +1,10 @@
+Huesped 1:
+    Reserva 1:
+    Habitación estandar para 6 personas.
+    Reserva en el rango de fechas: 2023/04/01 - 2023/04/04.
+Huespedes de la reserva:'n        Huesped 1:
+Nombre:Harol.
+1097.
+        Huesped 2:
+Nombre:nipur.
+12.

@@ -17,7 +17,6 @@ public class ControladorHuespedes {
     }
     public void cargarHuespedes() throws FileNotFoundException, IOException{
         try (BufferedReader br = new BufferedReader(new FileReader("Proyecto1Entrega3/Datos/Huespedes.txt"))) {
-            //nombre;documento;email;celular;necesitaCama
             String st;
             br.readLine();
             while ((st = br.readLine()) != null) {
@@ -42,11 +41,24 @@ public class ControladorHuespedes {
         }
         return huesped;
     }
-    public void generarArchivoLog(ArrayList<Huesped> huespedes){
+    public String generarArchivoLog(ArrayList<Huesped> huespedes){
+        String str = "";
         for(int i=0;i<huespedes.size();i++){
-            //Huesped huesped = huespedes.get(i);
-
+            Huesped huesped = huespedes.get(i);
+            str += "Huesped " + (i+1) + ":\n";
+            for(int rsv = 0; rsv< huesped.getHistorialReserva().size();rsv++){
+                Reserva reserva = huesped.getHistorialReserva().get(i);
+                Habitacion habitacion = reserva.getHabitacion();
+                str += "    Reserva " + (rsv +1) + ":\n";
+                str += "    Habitación " + habitacion.getTipoHabitacion() + " para " + habitacion.getEspacio() + " personas.\n";
+                str += "    Reserva en el rango de fechas: " + reserva.getRangoFecha() +".\n    Huespedes de la reserva:\n";
+                for(int hsp = 0; hsp< reserva.getHuespedes().size();hsp++){
+                    Huesped huesped2 = reserva.getHuespedes().get(hsp);
+                    str += "        Huesped " + (hsp+1) +":\n   Nombre:" + huesped2.getNombre() + ".\n  " + huesped2.getDocumento()+".\n";
+                }
+            }
         }
+        return str;
     }
     
 }
