@@ -8,3 +8,4 @@ Harol;1097;a;a;true
 nipur;12;a;a;true
 Harold;1097;-;-;false
 johan;123;a;a;false
+jef;123;npo;mkk;false

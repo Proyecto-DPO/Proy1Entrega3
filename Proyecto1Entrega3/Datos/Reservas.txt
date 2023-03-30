@@ -1,2 +1,3 @@
 id;idHabitacion;fechaInicial;fechaFinal;Huespedes;cancelado
 0;10;2023-04-01;2023-04-04;Harol:1097:a:a:true-nipur:12:a:a:true;true
+1;13;2023-04-01;2023-04-03;jef:123:npo:mkk:false;false
