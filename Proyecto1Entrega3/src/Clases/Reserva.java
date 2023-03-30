@@ -64,7 +64,7 @@ public class Reserva {
         return retorno;
     }
     public String seleccionadorReserva(){
-        String retorno = getRangoFecha() + ":";
+        String retorno = getRangoFecha() + ":\n";
         for(int i=0; i<huespedes.size();i++){
             retorno += huespedes.get(i).getNombre() + " - " + huespedes.get(i).getDocumento() + "\n";
         }

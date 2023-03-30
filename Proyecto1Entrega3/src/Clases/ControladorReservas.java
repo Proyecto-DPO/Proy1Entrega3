@@ -1,7 +1,9 @@
 package Clases;
 import java.io.BufferedReader;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -120,7 +122,7 @@ public class ControladorReservas {
             Date hoy = Calendar.getInstance().getTime();
 
             if(((fechaInicial.getTime() - hoy.getTime())/3.6e6) >= 48){
-                reservas.remove(id);
+                reservas.get(id).setCancelado(true);
                 retorno = true;
             }
             if(retorno){
@@ -138,12 +140,20 @@ public class ControladorReservas {
                      else{
                     huespedesString += nombre+":"+documento+":"+email+":"+celular+":"+necesitaCama+"-";
                     }
-                Path path = Paths.get("Proyecto1Entrega3/Datos/Reservas.txt");
-                List<String> lines;
                 try {
-                    lines = Files.readAllLines(path, StandardCharsets.UTF_8);
-                    lines.set( id +1,id+";"+reserva.getHabitacion().getId()+";"+sdf.format(fechaInicial)+";"+sdf.format(reserva.getFechas().getFechaFinal())+";"+huespedesString+";true" );
-                    //Files.write(path, lines, StandardCharsets.UTF_8);
+                    Path path = Paths.get("Proyecto1Entrega3/Datos/Reservas.txt");
+                    List<String> lines = Files.readAllLines(path, StandardCharsets.UTF_8);
+                    lines.set(id + 1, id + ";" + reserva.getHabitacion().getId() + ";" + sdf.format(fechaInicial) + ";" + sdf.format(reserva.getFechas().getFechaFinal()) + ";" + huespedesString + ";true");
+
+                    try (OutputStream out = new FileOutputStream(path.toFile())) {
+                        int lastIndex = lines.size() - 1;
+                        for (int a = 0; a < lines.size(); a++) {
+                            String line = lines.get(a);
+                            out.write(line.getBytes(StandardCharsets.UTF_8));
+                            if (a != lastIndex) {
+                                out.write('\n');}
+        }
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
