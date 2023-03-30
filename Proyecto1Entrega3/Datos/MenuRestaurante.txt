@@ -11,5 +11,5 @@ Pizza mediana;persona;Restaurante;comida;11:00-22:00;25000
 Sándwich mixto;persona;Restaurante;comida;11:00-22:00;15000
 Cerveza nacional;persona;Restaurante;bebida;18:00-23:00;8000
 Cerveza importada;persona;Restaurante;bebida;18:00-23:00;12000
-Coctel del día;persona;Restaurante;bebida;18:00-23:00;15000
+Coctel del día;persona;Restaurante;bebida;18:00-23:00;70000.0
 Botella de vino;persona;Restaurante;bebida;18:00-23:00;70000

@@ -2,12 +2,17 @@ package Clases;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ControladorServicios {
 
@@ -69,4 +74,39 @@ public class ControladorServicios {
             e.printStackTrace();
         }
     }
+    public void cambiarPrecio(String string, String servicio, double nuevaTarifa){
+        int index = 3;
+        if(string.equals("MenuRestaurante")){
+            index = 5;
+        }
+        Path archivoServicios = Paths.get("Proyecto1Entrega3/Datos/" + string +".txt");
+        List<String> lineas;
+        try {
+            lineas = Files.readAllLines(archivoServicios, StandardCharsets.UTF_8);
+            for (int i = 0; i < lineas.size(); i++) {
+                String[] campos = lineas.get(i).split(";");
+                if (campos[0].equals(servicio)) {
+                    campos[index] = Double.toString(nuevaTarifa);
+                    lineas.set(i, String.join(";", campos));
+                    break;
+                }
+            }
+            Files.write(archivoServicios, lineas, StandardCharsets.UTF_8, StandardOpenOption.TRUNCATE_EXISTING);
+
+            try (OutputStream out = new FileOutputStream(archivoServicios.toFile())) {
+                int lastIndex = lineas.size() - 1;
+                for (int a = 0; a < lineas.size(); a++) {
+                    String line = lineas.get(a);
+                    out.write(line.getBytes(StandardCharsets.UTF_8));
+                    if (a != lastIndex) {
+                        out.write('\n');}
+}
+            }
+        
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }     
+    }
+    
 }

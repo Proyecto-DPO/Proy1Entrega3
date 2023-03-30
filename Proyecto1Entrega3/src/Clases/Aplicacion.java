@@ -43,8 +43,8 @@ public class Aplicacion {
             if(opcion.equals("1")){cargarArchivoHabitaciones();}
             else if(opcion.equals("2")){crearHabitacion();}
             else if(opcion.equals("3")){cargarTarifaHabitacion();}
-            else if(opcion.equals("4")){cargarTarifaServicio();}
-            else if(opcion.equals("5")){cargarMenuRestauranteYServicios();}
+            else if(opcion.equals("5")){cargarTarifaServicio();}
+            else if(opcion.equals("4")){cargarMenuRestauranteYServicios();}
             else if(opcion.equals("6")){crearProductoRestaurante();}
             else if(opcion.equals("7")){tarifasSinDefinirProximoAño();}
             else if(opcion.equals("0")){ingresarUsuario();}}
@@ -193,13 +193,15 @@ public class Aplicacion {
         int id = Integer.parseInt(input("Seleccione el servicio"));
         Servicio servicio = this.hotel.getControladorServicios().getServicioId(id);
         double nuevaTarifa = Double.parseDouble(input("ingrese el nuevo valor del servicio"));
-        servicio.setPrecio(nuevaTarifa);}
+        servicio.setPrecio(nuevaTarifa);
+        hotel.getControladorServicios().cambiarPrecio("Servicios", servicio.getNombreServicio(),nuevaTarifa);}
         else{
             System.out.println(this.hotel.getControladorServicios().mostrarMenu());
             int id = Integer.parseInt(input("Seleccione el producto"));
             ProductoRestaurante producto = this.hotel.getControladorServicios().getMenuId(id);
             double nuevaTarifa = Double.parseDouble(input("ingrese el nuevo valor del producto"));
             producto.setPrecio(nuevaTarifa);
+            hotel.getControladorServicios().cambiarPrecio("MenuRestaurante", producto.getNombreServicio(),nuevaTarifa);
         }
     }
     public void cargarTarifaHabitacion() throws ParseException {
@@ -238,8 +240,8 @@ public class Aplicacion {
             System.out.println("1. Cargar archivo de habitaciones,camas, tarifas, reservas y huespedes.");
             System.out.println("2. Crear habitacion en el inventario.");
             System.out.println("3. Cargar tarifa para un tipo de habitación");
-            System.out.println("4. Establecer o cambiar tarifa para un servicio.");
-            System.out.println("5. Cargar menú restaurante y catalogo de servicios.");
+            System.out.println("4. Cargar menú restaurante y catalogo de servicios.");
+            System.out.println("5. Establecer o cambiar tarifa para un servicio.");
             System.out.println("6. Crear producto de restaurante.");
             System.out.println("7. Consultar tarifas sin crear en los proximos 365 días.");
             System.out.println("0. Cerrar.");}
