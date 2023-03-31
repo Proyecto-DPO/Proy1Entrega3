@@ -129,6 +129,7 @@ public class Aplicacion {
     }
     public void crearReserva() throws ParseException {
         int numHuespedes = Integer.parseInt(input("Ingrese el numero de huespedes de la reserva"));
+        int noCama = 0;
         ArrayList<ArrayList<String>> infoHuespedes = new ArrayList<ArrayList<String>>();
         for(int i=1;i <= numHuespedes;i++){
             ArrayList<String> infoHuesped = new ArrayList<String>();
@@ -141,6 +142,7 @@ public class Aplicacion {
             String celular = input("Ingrese el numero de celular del huesped " + i); 
             infoHuesped.add(celular); 
             String necesitaCama = input("Ingrese si el huesped " + i + " necesita cama (true/false)");
+            if(necesitaCama.equals("false")){noCama++;}
             infoHuesped.add(necesitaCama);
             infoHuespedes.add(infoHuesped);
         }
@@ -153,10 +155,10 @@ public class Aplicacion {
         idHabitacion = input("Ingrese el id de la habitación de la reserva");
         Habitacion habitacion = hotel.getControladorHabitaciones().getHabitacion(Integer.parseInt(idHabitacion));
         if(hotel.confirmarDisponibilidad(fechaInicial,fechaFinal,idHabitacion)){
-            continuar2 = false;
+            continuar1 = false;
         }
         else{System.out.println("La habitación no está disponible en esa fecha.");}
-        if(numHuespedes <= habitacion.getEspacio()){
+        if((numHuespedes-noCama) <= habitacion.getEspacio()){
             continuar2 = false;
         }
         else{
