@@ -44,10 +44,9 @@ public class Aplicacion {
             if(opcion.equals("1")){cargarArchivoHabitaciones();}
             else if(opcion.equals("2")){crearHabitacion();}
             else if(opcion.equals("3")){cargarTarifaHabitacion();}
-            else if(opcion.equals("5")){cargarTarifaServicio();}
-            else if(opcion.equals("4")){cargarMenuRestauranteYServicios();}
-            else if(opcion.equals("6")){crearProductoRestaurante();}
-            else if(opcion.equals("7")){tarifasSinDefinirProximoAño();}
+            else if(opcion.equals("4")){cargarTarifaServicio();}
+            else if(opcion.equals("5")){crearProductoRestaurante();}
+            else if(opcion.equals("6")){tarifasSinDefinirProximoAño();}
             else if(opcion.equals("0")){ingresarUsuario();}}
             
         else if(user.getRol().equals("Recepcionista")){
@@ -89,7 +88,7 @@ public class Aplicacion {
             Servicio servicio = this.hotel.getControladorServicios().getServicioId(id);
             Boolean pagado = Boolean.parseBoolean(input("Ingrese si el pedido ya ha sido pagado (true/false)"));
             servicio.setPagado(pagado);
-            
+            reserva.getServiciosConsumidos().add(servicio);
             
         }
         else if(tipoServicio.equals("1")){
@@ -101,6 +100,7 @@ public class Aplicacion {
             reserva.getProductoMenuConsumido().add(servicio);
             
         }
+        hotel.cargarServicioConsumido(reserva);
     }
     // Requerimientos Recepcionista
     private void archivoLog() {
@@ -198,13 +198,7 @@ public class Aplicacion {
         double precio = Double.parseDouble(input("Ingrese el precio:"));
 
         this.hotel.getControladorServicios().crearProductoRestaurante(nombre,tipoProducto,rangoHoras,precio);
-    }
-    public void cargarMenuRestauranteYServicios() throws IOException {
-        String servicios = input("Ingrese el nombre del archivo de servicios");
-        String menu = input("Ingrese el nombre del archivo de menu");
-
-        this.hotel.cargarMenuRestauranteYServicios("Proyecto1Entrega3/Datos/"+servicios,"Proyecto1Entrega3/Datos/"+menu);
-    }
+    } 
     public void cargarTarifaServicio() {
         String decision = input("Determine el precio de un servicio (0) o de un producto del restaurante (1)");
         if(decision.equals("0")){
@@ -256,13 +250,12 @@ public class Aplicacion {
 
     public void mostrarMenu(Usuario user){
         if(user.getRol().equals("Administrador")){
-            System.out.println("1. Cargar archivo de habitaciones,camas, tarifas, reservas y huespedes.");
+            System.out.println("1. Cargar archivo de habitaciones,camas, tarifas, reservas, huespedes, menu y servicios.");
             System.out.println("2. Crear habitacion en el inventario.");
             System.out.println("3. Cargar tarifa para un tipo de habitación");
-            System.out.println("4. Cargar menú restaurante y catalogo de servicios.");
-            System.out.println("5. Establecer o cambiar tarifa para un servicio.");
-            System.out.println("6. Crear producto de restaurante.");
-            System.out.println("7. Consultar tarifas sin crear en los proximos 365 días.");
+            System.out.println("4. Establecer o cambiar tarifa para un servicio.");
+            System.out.println("5. Crear producto de restaurante.");
+            System.out.println("6. Consultar tarifas sin crear en los proximos 365 días.");
             System.out.println("0. Cerrar.");}
 
         else if(user.getRol().equals("Recepcionista")){

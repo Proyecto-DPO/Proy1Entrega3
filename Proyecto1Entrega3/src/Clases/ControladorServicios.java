@@ -62,6 +62,24 @@ public class ControladorServicios {
     public ArrayList<Servicio> getServicios() {
         return servicios;
     }
+    public int getIdServicio(String nombre){
+        int id = 0;
+        for(int i=0;i<servicios.size();i++){
+            if(servicios.get(i).getNombreServicio().equals(nombre)){
+                id = i;
+            }
+        }
+        return id;
+    }
+    public int getIdMenu(String nombre){
+        int id = 0;
+        for(int i=0;i<menu.size();i++){
+            if(menu.get(i).getNombreServicio().equals(nombre)){
+                id = i;
+            }
+        }
+        return id;
+    }
     public ArrayList<ProductoRestaurante> getMenu() {
         return menu;
     }

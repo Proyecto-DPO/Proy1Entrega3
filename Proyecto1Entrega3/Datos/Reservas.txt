@@ -1,1 +1,2 @@
 id;idHabitacion;fechaInicial;fechaFinal;Huespedes;cancelado;servicios;menu
+0;10;2023-04-23;2023-04-24;harold:1092:a:a:true;false;-11:true;-9:false

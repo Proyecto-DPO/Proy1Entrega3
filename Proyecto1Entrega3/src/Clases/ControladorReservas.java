@@ -52,7 +52,7 @@ public class ControladorReservas {
         int id = reservas.size();
         Reserva reserva = new Reserva(rangoFecha,huespedes,habitacion, id,false);
         try {
-            Files.write(Paths.get("Proyecto1Entrega3/Datos/Reservas.txt"),("\n"+id+";"+reserva.getHabitacion().getId()+";"+fechaInicial+";"+fechaFinal+";"+huespedesString+";false").getBytes(), StandardOpenOption.APPEND );
+            Files.write(Paths.get("Proyecto1Entrega3/Datos/Reservas.txt"),("\n"+id+";"+reserva.getHabitacion().getId()+";"+fechaInicial+";"+fechaFinal+";"+huespedesString+";false" + ";-;-").getBytes(), StandardOpenOption.APPEND );
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -82,7 +82,7 @@ public class ControladorReservas {
                 retorno += "        " + servicio.getNombreServicio() +"*: " + servicio.getPrecio() + "$\n";
             }
             else{
-                retorno += "        " + servicio.getNombreServicio() +"*: " + servicio.getPrecio() + "$\n";
+                retorno += "        " + servicio.getNombreServicio() +": " + servicio.getPrecio() + "$\n";
                 totalPagar += servicio.getPrecio();
             }}
         retorno += "    Productos consumidos del restaurante:\n";
@@ -206,14 +206,16 @@ public class ControladorReservas {
                     huespedes.get(i).getHistorialReserva().add(reserva);}
                 for(int i=0; i<split[6].split("-").length;i++){
                     String[] split1 = split[6].split("-")[i].split(":");
+                    if((split1[0]).equals("") == false){
                     Servicio servicio = controladorServicios.getServicioId(Integer.parseInt(split1[0]));
                     servicio.setPagado(Boolean.parseBoolean(split1[1]));
-                    reserva.getServiciosConsumidos().add(servicio);}
+                    reserva.getServiciosConsumidos().add(servicio);}}
                 for(int i=0; i<split[7].split("-").length;i++){
                     String[] split1 = split[7].split("-")[i].split(":");
+                    if((split1[0]).equals("") == false){
                     ProductoRestaurante productoRestaurante = controladorServicios.getMenuId(Integer.parseInt(split1[0]));
                     productoRestaurante.setPagado(Boolean.parseBoolean(split1[1]));
-                    reserva.getProductoMenuConsumido().add(productoRestaurante);}}}
+                    reserva.getProductoMenuConsumido().add(productoRestaurante);}}}}
     }
     public String mostrarReservas(){
         String st = "";

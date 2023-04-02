@@ -1,18 +1,15 @@
 Reserva 0
 Habitación estandar para 6 personas.
-Rango de fechas 2023/04/01 - 2023/04/04.
-Precio dadas las tarifas: 4.0
+Rango de fechas 2023/04/23 - 2023/04/24.
+Precio por la habitacion dadas las tarifas: 2.0E11
     Huesped 1:
-        Nombre:Harol
-        Documento:1097
-        Email:a
-        Celular:a
-    Huesped 2:
-        Nombre:nipur
-        Documento:12
+        Nombre:harold
+        Documento:1092
         Email:a
         Celular:a
     Servicios Consumidos:
+        Clases de natación*: 2.0$
     Productos consumidos del restaurante:
-TOTAL A PAGAR: 4.0$
+        Sándwich mixto*: 15000.0$
+TOTAL A PAGAR: 2.00000015E11$
 Los Productos con * ya fueron pagados y no son contados en el precio final.

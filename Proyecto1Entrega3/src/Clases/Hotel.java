@@ -143,6 +143,7 @@ public class Hotel {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        cargarMenuRestauranteYServicios("Proyecto1Entrega3/Datos/Servicios.txt","Proyecto1Entrega3/Datos/MenuRestaurante.txt");
         controladorHuespedes.cargarHuespedes();
         String rutaHabitaciones = "Proyecto1Entrega3/Datos/Habitaciones.txt";
         String rutaCamas = "Proyecto1Entrega3/Datos/Camas.txt";
@@ -186,9 +187,9 @@ public class Hotel {
         }
         return disponible;
     }
-    public void cargarServicioConsumido(Reserva reserva, Servicio servicio) { 
-        String strServicios = "";
-        String strMenu = "";
+    public void cargarServicioConsumido(Reserva reserva) { 
+        String strServicios = "-";
+        String strMenu = "-";
         String huespedesString = "";
         ArrayList<Huesped> infoHuespedes = reserva.getHuespedes();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -208,18 +209,18 @@ public class Hotel {
             }}
         for(int  i=0; i<reserva.getServiciosConsumidos().size();i++){
             if(i == reserva.getServiciosConsumidos().size()-1){
-               strServicios += reserva.getServiciosConsumidos().get(i) +":" +reserva.getServiciosConsumidos().get(i).isPagado() ;
+               strServicios += controladorServicios.getIdServicio(reserva.getServiciosConsumidos().get(i).getNombreServicio()) +":" +reserva.getServiciosConsumidos().get(i).isPagado() ;
                 }
                  else{
-                    strServicios += reserva.getServiciosConsumidos().get(i) +":" +reserva.getServiciosConsumidos().get(i).isPagado() + "-";
+                    strServicios += controladorServicios.getIdServicio(reserva.getServiciosConsumidos().get(i).getNombreServicio()) +":" +reserva.getServiciosConsumidos().get(i).isPagado() + "-";
                 }
         }
         for(int  i=0; i<reserva.getProductoMenuConsumido().size();i++){
             if(i == reserva.getProductoMenuConsumido().size()-1){
-                strMenu += reserva.getProductoMenuConsumido().get(i) + ":" +reserva.getProductoMenuConsumido().get(i).isPagado();
+                strMenu += controladorServicios.getIdMenu(reserva.getProductoMenuConsumido().get(i).getNombreServicio()) + ":" +reserva.getProductoMenuConsumido().get(i).isPagado();
                 }
                  else{
-                    strMenu += reserva.getProductoMenuConsumido().get(i) + ":" +reserva.getProductoMenuConsumido().get(i).isPagado() + "-";
+                    strMenu += controladorServicios.getIdMenu(reserva.getProductoMenuConsumido().get(i).getNombreServicio()) + ":" +reserva.getProductoMenuConsumido().get(i).isPagado() + "-";
                 }
         }
 
