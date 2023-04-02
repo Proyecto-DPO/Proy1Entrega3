@@ -115,7 +115,7 @@ public class Hotel {
         ArrayList<Huesped> huespedes = reserva.getHuespedes();
         for(int i=0;i<huespedes.size();i++){
             String nombre = huespedes.get(i).getNombre();
-            int documento = huespedes.get(i).getDocumento();
+            long documento = huespedes.get(i).getDocumento();
             String email = huespedes.get(i).getEmail();
             String celular = huespedes.get(i).getCelular();
             boolean necesitaCama = huespedes.get(i).isNecesitaCama();
@@ -197,7 +197,7 @@ public class Hotel {
         
         for(int i=0;i<infoHuespedes.size();i++){
             String nombre = infoHuespedes.get(i).getNombre();
-            int documento = infoHuespedes.get(i).getDocumento();
+            long documento = infoHuespedes.get(i).getDocumento();
             String email = infoHuespedes.get(i).getEmail();
             String celular = infoHuespedes.get(i).getCelular();
             boolean necesitaCama = infoHuespedes.get(i).isNecesitaCama();

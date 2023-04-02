@@ -62,7 +62,8 @@ public class Habitacion {
         }
         retorno += "Reservas:\n";
         for(int i=1;i<=reservas.size();i++){
-            retorno += reservas.get(i-1).stringInventario() + "\n";
+            if(reservas.get(i).isCancelado() == false){
+            retorno += reservas.get(i-1).stringInventario() + "\n";}
         }
         return retorno;
     }

@@ -59,3 +59,5 @@ id;tamaño;cantidadPersonas;soloNiños
 12;king;3;false
 16;queen;3;false
 17;queen;3;false
+21;doble;2;false
+21;individual;1;true

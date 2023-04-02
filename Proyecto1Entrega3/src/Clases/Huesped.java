@@ -4,13 +4,13 @@ import java.util.ArrayList;
 public class Huesped {
 
     private String nombre;
-    private int documento; 
+    private long documento; 
     private String email; 
     private String celular; 
     private boolean necesitaCama; 
     private ArrayList<Reserva> historialReserva;
 
-    public Huesped(String nombre, int documento, String email,String celular,boolean necesitaCama){
+    public Huesped(String nombre, long documento, String email,String celular,boolean necesitaCama){
 
         this.nombre = nombre;
         this.documento = documento;
@@ -24,7 +24,7 @@ public class Huesped {
         return nombre;
     }
 
-    public int getDocumento() {
+    public long getDocumento() {
         return documento;
     }
 

@@ -36,7 +36,7 @@ public class ControladorReservas {
         String huespedesString = "";
         for(int i=0;i<infoHuespedes.size();i++){
             String nombre = infoHuespedes.get(i).get(0);
-            int documento = Integer.parseInt(infoHuespedes.get(i).get(1));
+            long documento = Long.parseLong(infoHuespedes.get(i).get(1));
             String email = infoHuespedes.get(i).get(2);
             String celular = (infoHuespedes.get(i).get(3));
             boolean necesitaCama = Boolean.parseBoolean(infoHuespedes.get(i).get(4));
@@ -127,12 +127,12 @@ public class ControladorReservas {
             }
             if(retorno){
                 String huespedesString = "";
-                String strServicios = "";
-                String strMenu = "";
+                String strServicios = "-";
+                String strMenu = "-";
                 ArrayList<Huesped> infoHuespedes = reserva.getHuespedes();
                 for(int i=0;i<infoHuespedes.size();i++){
                     String nombre = infoHuespedes.get(i).getNombre();
-                    int documento = infoHuespedes.get(i).getDocumento();
+                    long documento = infoHuespedes.get(i).getDocumento();
                     String email = infoHuespedes.get(i).getEmail();
                     String celular = infoHuespedes.get(i).getCelular();
                     boolean necesitaCama = infoHuespedes.get(i).isNecesitaCama();
@@ -195,7 +195,7 @@ public class ControladorReservas {
                 String[] split2 = split[4].split("-");
                 for(int i=0;i<split2.length;i++){
                     String[] split3 = split2[i].split(":");
-                    Huesped huesped = controladorHuespedes.getHuesped(split3[0],Integer.parseInt(split3[1]),split3[2],split3[3], Boolean.parseBoolean(split3[4]));
+                    Huesped huesped = controladorHuespedes.getHuesped(split3[0],Long.parseLong(split3[1]),split3[2],split3[3], Boolean.parseBoolean(split3[4]));
                     huespedes.add(huesped);
                 }
                 Habitacion habitacion = controladorHabitaciones.getHabitacion(Integer.parseInt( split[1]));

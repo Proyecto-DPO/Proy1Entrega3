@@ -66,7 +66,6 @@ public class ControladorHabitaciones {
                     try {
                         Files.write(Paths.get("Proyecto1Entrega3/Datos/Camas.txt"),("\n"+id+";"+cama.getTamaño()+";"+cama.getCantidadPersonas()+";"+cama.isSoloNiños()+"\n").getBytes(), StandardOpenOption.APPEND );
                     } catch (IOException e) {
-                        // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
                 }
@@ -121,6 +120,10 @@ public class ControladorHabitaciones {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Calendar hoy = Calendar.getInstance();
+        hoy.set(Calendar.HOUR_OF_DAY, 0);
+        hoy.set(Calendar.MINUTE,0);
+        hoy.set(Calendar.SECOND, 0);
+        hoy.set(Calendar.MILLISECOND, 0);
         for(int i=0; i<365;i++){
             String diaSemana = numDayToString(hoy.get(Calendar.DAY_OF_WEEK));
             for(int key = 0; key<keys.length;key++){

@@ -175,10 +175,7 @@ public class Aplicacion {
 
     }
     private void cancelarReserva() {
-        for(int i= 0; i< hotel.getControladorReservas().getReservas().size();i++){
-            System.out.println(i + " " + hotel.getControladorReservas().getReservas().get(i).seleccionadorReserva());
-        }
-
+        System.out.println(hotel.getControladorReservas().mostrarReservas());
         int id = Integer.parseInt(input("Ingrese el id de la reserva a cancelar"));
         boolean bool = hotel.getControladorReservas().cancelarReserva(id);
         if(bool == true){

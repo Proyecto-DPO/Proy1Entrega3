@@ -1,1 +1,3 @@
 id;idHabitacion;fechaInicial;fechaFinal;Huespedes;cancelado;servicios;menu
+0;10;2023-04-06;2023-04-09;Nicolas:1092850219:n.ruizp2@uniandes.edu.co:3188490365:true-Harold:1029485930:h.coca:3192838593:true-Lindsy:10294382828:l.ar:10334922949:true;false;-;-
+1;1;2023-04-05;2024-04-05;roland:10392421:n.r:2213446342:true;false;-;-

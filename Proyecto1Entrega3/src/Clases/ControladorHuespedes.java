@@ -21,10 +21,10 @@ public class ControladorHuespedes {
             br.readLine();
             while ((st = br.readLine()) != null) {
                 String[] split = st.split(";");
-                Huesped huesped = new Huesped(split[0], Integer.parseInt(split[1]), split[2], split[3], Boolean.parseBoolean(split[4]));
+                Huesped huesped = new Huesped(split[0], Long.parseLong(split[1]), split[2], split[3], Boolean.parseBoolean(split[4]));
                 this.huespedes.add(huesped);}}
     }
-    public Huesped getHuesped(String nombre, int documento, String email, String celular, boolean necesitaCama){
+    public Huesped getHuesped(String nombre, long documento, String email, String celular, boolean necesitaCama){
         Huesped huesped = null;
         for(int i = 0; i < huespedes.size();i++){
             if(huespedes.get(i).getNombre().equals(nombre) && (huespedes.get(i).getDocumento() == documento)){
