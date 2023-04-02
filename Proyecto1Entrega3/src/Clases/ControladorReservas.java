@@ -107,7 +107,7 @@ public class ControladorReservas {
         ArrayList<Reserva> reservasDoc = new ArrayList<Reserva>();
         for(int i=0;i<reservas.size();i++){
             for(int r = 0; r < reservas.get(i).getHuespedes().size();r++){
-                if(reservas.get(i).getHuespedes().get(r).getDocumento() == documento){
+                if(reservas.get(i).getHuespedes().get(r).getDocumento() == documento && reservas.get(i).isCancelado() == false){
                     reservasDoc.add(reservas.get(i));
                 }
             }
@@ -220,7 +220,7 @@ public class ControladorReservas {
     public String mostrarReservas(){
         String st = "";
         for(int i=0;i<reservas.size();i++){
-            st += i + ".    "+reservas.get(i).getRangoFecha() + " "+reservas.get(i).getHuespedes().get(i).getNombre() + "-" + reservas.get(i).getHuespedes().get(i).getDocumento();
+            st += i + ".    "+reservas.get(i).getRangoFecha() + " "+reservas.get(i).getHuespedes().get(0).getNombre() + "-" + reservas.get(i).getHuespedes().get(0).getDocumento() + "\n";
         }
         return st;
     }

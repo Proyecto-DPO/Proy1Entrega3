@@ -61,9 +61,9 @@ public class Habitacion {
             retorno += "    Cama " + i + ":" + camas.get(i-1).stringFactura() + "\n";
         }
         retorno += "Reservas:\n";
-        for(int i=1;i<=reservas.size();i++){
+        for(int i=0;i<reservas.size();i++){
             if(reservas.get(i).isCancelado() == false){
-            retorno += reservas.get(i-1).stringInventario() + "\n";}
+            retorno += (i)+":"+reservas.get(i).stringInventario() + "\n";}
         }
         return retorno;
     }

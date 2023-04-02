@@ -10,6 +10,8 @@ Hamburguesa con papas;persona;Restaurante;comida;11:00-22:00;20000
 Pizza mediana;persona;Restaurante;comida;11:00-22:00;25000
 Sándwich mixto;persona;Restaurante;comida;11:00-22:00;15000
 Cerveza nacional;persona;Restaurante;bebida;18:00-23:00;8000
-Cerveza importada;persona;Restaurante;bebida;18:00-23:00;12000
+Cerveza importada;persona;Restaurante;bebida;18:00-23:00;500000.0
 Coctel del día;persona;Restaurante;bebida;18:00-23:00;70000.0
 Botella de vino;persona;Restaurante;bebida;18:00-23:00;70000
+Ramen;persona;Restaurante;comida;14:30-15:45;50000.0
+Tomate Asado;persona;Restaurante;comida;14:30-15:45;70000.0

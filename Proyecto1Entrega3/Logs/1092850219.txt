@@ -1,0 +1,31 @@
+Huesped 1:
+    Reserva 1:
+    Habitación estandar para 6 personas.
+    Reserva en el rango de fechas: 2023/04/06 - 2023/04/09.
+    Huespedes de la reserva:
+        Huesped 1:
+   Nombre:Nicolas.
+      1092850219.
+        Huesped 2:
+   Nombre:Harold.
+      1029485930.
+        Huesped 3:
+   Nombre:Lindsy.
+      10294382828.
+    Reserva 2:
+    Habitación estandar para 7 personas.
+    Reserva en el rango de fechas: 2023/04/09 - 2023/04/10.
+    Huespedes de la reserva:
+        Huesped 1:
+   Nombre:Jarold.
+      12029391.
+        Huesped 2:
+   Nombre:Nicolas.
+      1092850219.
+    Reserva 3:
+    Habitación suite para 9 personas.
+    Reserva en el rango de fechas: 2023/05/01 - 2023/05/03.
+    Huespedes de la reserva:
+        Huesped 1:
+   Nombre:Nicolas.
+      1092850219.

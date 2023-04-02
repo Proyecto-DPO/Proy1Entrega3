@@ -47,14 +47,14 @@ public class ControladorHuespedes {
             Huesped huesped = huespedes.get(i);
             str += "Huesped " + (i+1) + ":\n";
             for(int rsv = 0; rsv< huesped.getHistorialReserva().size();rsv++){
-                Reserva reserva = huesped.getHistorialReserva().get(i);
+                Reserva reserva = huesped.getHistorialReserva().get(rsv);
                 Habitacion habitacion = reserva.getHabitacion();
                 str += "    Reserva " + (rsv +1) + ":\n";
                 str += "    Habitación " + habitacion.getTipoHabitacion() + " para " + habitacion.getEspacio() + " personas.\n";
                 str += "    Reserva en el rango de fechas: " + reserva.getRangoFecha() +".\n    Huespedes de la reserva:\n";
                 for(int hsp = 0; hsp< reserva.getHuespedes().size();hsp++){
                     Huesped huesped2 = reserva.getHuespedes().get(hsp);
-                    str += "        Huesped " + (hsp+1) +":\n   Nombre:" + huesped2.getNombre() + ".\n  " + huesped2.getDocumento()+".\n";
+                    str += "        Huesped " + (hsp+1) +":\n   Nombre:" + huesped2.getNombre() + ".\n      " + huesped2.getDocumento()+".\n";
                 }
             }
         }

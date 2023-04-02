@@ -3,3 +3,4 @@ Nicolas;1092850219;n.ruizp2@uniandes.edu.co;3188490365;true
 Harold;1029485930;h.coca;3192838593;true
 Lindsy;10294382828;l.ar;10334922949;true
 roland;10392421;n.r;2213446342;true
+Jarold;12029391;g.ds;132034920;true

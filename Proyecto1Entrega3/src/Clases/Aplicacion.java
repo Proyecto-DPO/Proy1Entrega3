@@ -75,7 +75,7 @@ public class Aplicacion {
             String reservas = "";
             ArrayList<Reserva> reservasDoc = this.hotel.getControladorReservas().getReservaDocumento(documento);
             for(int i=0;i<reservasDoc.size();i++){
-                reservas += i +": Id " + reservasDoc.get(i).getIdReserva() + " Fechas:" + reservasDoc.get(i).getRangoFecha();
+                reservas += i +": Id " + reservasDoc.get(i).getIdReserva() + " Fechas:" + reservasDoc.get(i).getRangoFecha() +"\n";
             }
             System.out.println(reservas);
             int id = Integer.parseInt(input("Ingrese el id de la reserva deseada"));
@@ -193,7 +193,7 @@ public class Aplicacion {
         String nombre = input("Ingrese el nombre del producto");
         String tipoProducto = input("Ingrese el tipo de producto (comida/bebida)");
         String rangoHoras = input("Ingrese el rango de horas (HH:mm-HH:mm)");
-        double precio = Double.parseDouble(input("Ingrese el precio:"));
+        double precio = Double.parseDouble(input("Ingrese el precio"));
 
         this.hotel.getControladorServicios().crearProductoRestaurante(nombre,tipoProducto,rangoHoras,precio);
     } 
