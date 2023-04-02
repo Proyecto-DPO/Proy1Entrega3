@@ -92,7 +92,7 @@ public class ControladorReservas {
                 retorno += "        " + productoRestaurante.getNombreServicio() +"*: " + productoRestaurante.getPrecio() + "$\n";
             }
             else{
-                retorno += "        " + productoRestaurante.getNombreServicio() +"*: " + productoRestaurante.getPrecio() + "$\n";
+                retorno += "        " + productoRestaurante.getNombreServicio() +": " + productoRestaurante.getPrecio() + "$\n";
                 totalPagar += productoRestaurante.getPrecio();
         }}
 
@@ -220,7 +220,7 @@ public class ControladorReservas {
     public String mostrarReservas(){
         String st = "";
         for(int i=0;i<reservas.size();i++){
-            st += i + ".    "+reservas.get(i).getRangoFecha() + "   id de la reserva:" + reservas.get(i).getIdReserva() + "\n"; 
+            st += i + ".    "+reservas.get(i).getRangoFecha() + " "+reservas.get(i).getHuespedes().get(i).getNombre() + "-" + reservas.get(i).getHuespedes().get(i).getDocumento();
         }
         return st;
     }

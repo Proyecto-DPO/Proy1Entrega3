@@ -15,6 +15,7 @@ public class Aplicacion {
     }
     private void ejecutarAplicacion() throws IOException, NumberFormatException, ParseException {
         this.hotel.cargarUsuarios();
+        cargarArchivoHabitaciones();
         ingresarUsuario();
     }
     public void ingresarUsuario() throws NumberFormatException, IOException, ParseException{
@@ -41,12 +42,11 @@ public class Aplicacion {
             }}}
     public void opcionSeleccionada(Usuario user, String opcion) throws NumberFormatException, IOException, ParseException {
         if(user.getRol().equals("Administrador")){
-            if(opcion.equals("1")){cargarArchivoHabitaciones();}
-            else if(opcion.equals("2")){crearHabitacion();}
-            else if(opcion.equals("3")){cargarTarifaHabitacion();}
-            else if(opcion.equals("4")){cargarTarifaServicio();}
-            else if(opcion.equals("5")){crearProductoRestaurante();}
-            else if(opcion.equals("6")){tarifasSinDefinirProximoAño();}
+            if(opcion.equals("1")){crearHabitacion();}
+            else if(opcion.equals("2")){cargarTarifaHabitacion();}
+            else if(opcion.equals("3")){cargarTarifaServicio();}
+            else if(opcion.equals("4")){crearProductoRestaurante();}
+            else if(opcion.equals("5")){tarifasSinDefinirProximoAño();}
             else if(opcion.equals("0")){ingresarUsuario();}}
             
         else if(user.getRol().equals("Recepcionista")){
@@ -67,6 +67,7 @@ public class Aplicacion {
         Reserva reserva = null;
         String idODoc = input("Determine la reserva con el id (0) o con el documento de un huesped (1)");
         if (idODoc.equals("0")){
+            System.out.println(hotel.getControladorReservas().mostrarReservas());
             int id = Integer.parseInt(input("Ingrese el id de la reserva"));
             reserva = this.hotel.getControladorReservas().getReservaId(id+1);}
         else{
@@ -250,12 +251,11 @@ public class Aplicacion {
 
     public void mostrarMenu(Usuario user){
         if(user.getRol().equals("Administrador")){
-            System.out.println("1. Cargar archivo de habitaciones,camas, tarifas, reservas, huespedes, menu y servicios.");
-            System.out.println("2. Crear habitacion en el inventario.");
-            System.out.println("3. Cargar tarifa para un tipo de habitación");
-            System.out.println("4. Establecer o cambiar tarifa para un servicio.");
-            System.out.println("5. Crear producto de restaurante.");
-            System.out.println("6. Consultar tarifas sin crear en los proximos 365 días.");
+            System.out.println("1. Crear habitacion en el inventario.");
+            System.out.println("2. Cargar tarifa para un tipo de habitación");
+            System.out.println("3. Establecer o cambiar tarifa para un servicio.");
+            System.out.println("4. Crear producto de restaurante.");
+            System.out.println("5. Consultar tarifas sin crear en los proximos 365 días.");
             System.out.println("0. Cerrar.");}
 
         else if(user.getRol().equals("Recepcionista")){
