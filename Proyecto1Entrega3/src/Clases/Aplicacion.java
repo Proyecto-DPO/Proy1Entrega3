@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.text.ParseException;
 import java.util.ArrayList;
 
+
 public class Aplicacion {
     private Hotel hotel = new Hotel();
     public static void main(String args[]) throws IOException, NumberFormatException, ParseException{
@@ -88,7 +89,7 @@ public class Aplicacion {
             Servicio servicio = this.hotel.getControladorServicios().getServicioId(id);
             Boolean pagado = Boolean.parseBoolean(input("Ingrese si el pedido ya ha sido pagado (true/false)"));
             servicio.setPagado(pagado);
-            reserva.getServiciosConsumidos().add(servicio);
+            
             
         }
         else if(tipoServicio.equals("1")){

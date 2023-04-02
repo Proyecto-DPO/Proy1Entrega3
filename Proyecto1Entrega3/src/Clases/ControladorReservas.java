@@ -66,7 +66,7 @@ public class ControladorReservas {
         Habitacion habitacion =  reserva.getHabitacion();
         retorno += "Habitación " + habitacion.getTipoHabitacion() + " para " + habitacion.getEspacio() + " personas.\n";
         retorno += "Rango de fechas " + reserva.getRangoFecha() + ".\n"; 
-        retorno += "Precio dadas las tarifas: " + controladorHabitaciones.getPrecioHabitacion(habitacion, reserva.getFechas()) + "\n";
+        retorno += "Precio por la habitacion dadas las tarifas: " + controladorHabitaciones.getPrecioHabitacion(habitacion, reserva.getFechas()) + "\n";
         double totalPagar = controladorHabitaciones.getPrecioHabitacion(habitacion, reserva.getFechas());
         for(int i=0;i<reserva.getHuespedes().size();i++){
             Huesped huesped = reserva.getHuespedes().get(i);
@@ -127,6 +127,8 @@ public class ControladorReservas {
             }
             if(retorno){
                 String huespedesString = "";
+                String strServicios = "";
+                String strMenu = "";
                 ArrayList<Huesped> infoHuespedes = reserva.getHuespedes();
                 for(int i=0;i<infoHuespedes.size();i++){
                     String nombre = infoHuespedes.get(i).getNombre();
@@ -139,11 +141,27 @@ public class ControladorReservas {
                     }
                      else{
                     huespedesString += nombre+":"+documento+":"+email+":"+celular+":"+necesitaCama+"-";
-                    }
+                    }}
+                for(int  i=0; i<reserva.getServiciosConsumidos().size();i++){
+                    if(i == reserva.getServiciosConsumidos().size()-1){
+                       strServicios += reserva.getServiciosConsumidos().get(i);
+                        }
+                         else{
+                            strServicios += reserva.getServiciosConsumidos().get(i) + "-";
+                        }
+                }
+                for(int  i=0; i<reserva.getProductoMenuConsumido().size();i++){
+                    if(i == reserva.getProductoMenuConsumido().size()-1){
+                        strMenu += reserva.getProductoMenuConsumido().get(i);
+                        }
+                         else{
+                            strMenu += reserva.getProductoMenuConsumido().get(i) + "-";
+                        }
+                }
                 try {
                     Path path = Paths.get("Proyecto1Entrega3/Datos/Reservas.txt");
                     List<String> lines = Files.readAllLines(path, StandardCharsets.UTF_8);
-                    lines.set(id + 1, id + ";" + reserva.getHabitacion().getId() + ";" + sdf.format(fechaInicial) + ";" + sdf.format(reserva.getFechas().getFechaFinal()) + ";" + huespedesString + ";true");
+                    lines.set(id + 1, id + ";" + reserva.getHabitacion().getId() + ";" + sdf.format(fechaInicial) + ";" + sdf.format(reserva.getFechas().getFechaFinal()) + ";" + huespedesString + ";true;" + strServicios +";" + strMenu);
 
                     try (OutputStream out = new FileOutputStream(path.toFile())) {
                         int lastIndex = lines.size() - 1;
@@ -157,14 +175,15 @@ public class ControladorReservas {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            }}
+            }
             return retorno;
         }
 
         public ArrayList<Reserva> getReservas(){
             return this.reservas;
         }
-    public void cargarReservas(ControladorHabitaciones controladorHabitaciones, ControladorHuespedes controladorHuespedes) throws IOException, ParseException{
+    public void cargarReservas(ControladorHabitaciones controladorHabitaciones, ControladorHuespedes controladorHuespedes,
+        ControladorServicios controladorServicios) throws IOException, ParseException{
         try (BufferedReader br = new BufferedReader(new FileReader("Proyecto1Entrega3/Datos/Reservas.txt"))) {
             String st;
             br.readLine();
@@ -184,8 +203,17 @@ public class ControladorReservas {
                 habitacion.getReservas().add(reserva);
                 this.reservas.add(reserva);
                 for(int i=0;i<huespedes.size();i++){
-                    huespedes.get(i).getHistorialReserva().add(reserva);
-                }}}
+                    huespedes.get(i).getHistorialReserva().add(reserva);}
+                for(int i=0; i<split[6].split("-").length;i++){
+                    String[] split1 = split[6].split("-")[i].split(":");
+                    Servicio servicio = controladorServicios.getServicioId(Integer.parseInt(split1[0]));
+                    servicio.setPagado(Boolean.parseBoolean(split1[1]));
+                    reserva.getServiciosConsumidos().add(servicio);}
+                for(int i=0; i<split[7].split("-").length;i++){
+                    String[] split1 = split[7].split("-")[i].split(":");
+                    ProductoRestaurante productoRestaurante = controladorServicios.getMenuId(Integer.parseInt(split1[0]));
+                    productoRestaurante.setPagado(Boolean.parseBoolean(split1[1]));
+                    reserva.getProductoMenuConsumido().add(productoRestaurante);}}}
     }
     public String mostrarReservas(){
         String st = "";

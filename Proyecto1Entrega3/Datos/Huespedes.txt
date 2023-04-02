@@ -10,3 +10,6 @@ Harold;1097;-;-;false
 johan;123;a;a;false
 jef;123;npo;mkk;false
 umbert;102948;gnd;315;true
+umbert;102948;-;-;false
+toto;102;n.r;w;true
+yoyo;123;l;l;true

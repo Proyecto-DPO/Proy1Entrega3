@@ -2,14 +2,21 @@ package Clases;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class Hotel {
 
@@ -143,7 +150,7 @@ public class Hotel {
         File ruta_archivoCamas = new File(rutaCamas);
         this.controladorHabitaciones.cargarArchivoHabitaciones(ruta_archivoHabitaciones,ruta_archivoCamas);
         try {
-            controladorReservas.cargarReservas(controladorHabitaciones,controladorHuespedes);
+            controladorReservas.cargarReservas(controladorHabitaciones,controladorHuespedes,controladorServicios);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -167,7 +174,7 @@ public class Hotel {
             while(rangoFechas.fechaEnRango(calInicial.getTime())){
                 for(int i=0;i<habitacion.getReservas().size();i++){
                     Reserva reserva = habitacion.getReservas().get(i);
-                    if(reserva.getFechas().fechaEnRango(calInicial.getTime())){
+                    if(reserva.getFechas().fechaEnRango(calInicial.getTime()) && reserva.isCancelado() == false){
                         disponible = false;
                     }
                 }
@@ -178,5 +185,60 @@ public class Hotel {
             e.printStackTrace();
         }
         return disponible;
+    }
+    public void cargarServicioConsumido(Reserva reserva, Servicio servicio) { 
+        String strServicios = "";
+        String strMenu = "";
+        String huespedesString = "";
+        ArrayList<Huesped> infoHuespedes = reserva.getHuespedes();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date fechaInicial = reserva.getFechaInicial();
+        
+        for(int i=0;i<infoHuespedes.size();i++){
+            String nombre = infoHuespedes.get(i).getNombre();
+            int documento = infoHuespedes.get(i).getDocumento();
+            String email = infoHuespedes.get(i).getEmail();
+            String celular = infoHuespedes.get(i).getCelular();
+            boolean necesitaCama = infoHuespedes.get(i).isNecesitaCama();
+            if(i == infoHuespedes.size()-1){
+            huespedesString += nombre+":"+documento+":"+email+":"+celular+":"+necesitaCama;
+            }
+             else{
+            huespedesString += nombre+":"+documento+":"+email+":"+celular+":"+necesitaCama+"-";
+            }}
+        for(int  i=0; i<reserva.getServiciosConsumidos().size();i++){
+            if(i == reserva.getServiciosConsumidos().size()-1){
+               strServicios += reserva.getServiciosConsumidos().get(i) +":" +reserva.getServiciosConsumidos().get(i).isPagado() ;
+                }
+                 else{
+                    strServicios += reserva.getServiciosConsumidos().get(i) +":" +reserva.getServiciosConsumidos().get(i).isPagado() + "-";
+                }
+        }
+        for(int  i=0; i<reserva.getProductoMenuConsumido().size();i++){
+            if(i == reserva.getProductoMenuConsumido().size()-1){
+                strMenu += reserva.getProductoMenuConsumido().get(i) + ":" +reserva.getProductoMenuConsumido().get(i).isPagado();
+                }
+                 else{
+                    strMenu += reserva.getProductoMenuConsumido().get(i) + ":" +reserva.getProductoMenuConsumido().get(i).isPagado() + "-";
+                }
+        }
+
+        try {
+            Path path = Paths.get("Proyecto1Entrega3/Datos/Reservas.txt");
+            List<String> lines = Files.readAllLines(path, StandardCharsets.UTF_8);
+            lines.set(reserva.getIdReserva() + 1, reserva.getIdReserva() + ";" + reserva.getHabitacion().getId() + ";" + sdf.format(fechaInicial) + ";" + sdf.format(reserva.getFechas().getFechaFinal()) + ";" + huespedesString + ";"+reserva.isCancelado()+";" + strServicios +";" + strMenu);
+
+            try (OutputStream out = new FileOutputStream(path.toFile())) {
+                int lastIndex = lines.size() - 1;
+                for (int a = 0; a < lines.size(); a++) {
+                    String line = lines.get(a);
+                    out.write(line.getBytes(StandardCharsets.UTF_8));
+                    if (a != lastIndex) {
+                        out.write('\n');}
+}
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }   

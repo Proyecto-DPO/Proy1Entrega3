@@ -1,0 +1,8 @@
+Huesped 1:
+    Reserva 1:
+    Habitación estandar para 6 personas.
+    Reserva en el rango de fechas: 2023/04/05 - 2023/04/07.
+    Huespedes de la reserva:
+        Huesped 1:
+   Nombre:toto.
+  102.
